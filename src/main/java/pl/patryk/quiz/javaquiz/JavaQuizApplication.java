@@ -1,13 +1,13 @@
-package pl.patryk.quiz.javaquzi;
+package pl.patryk.quiz.javaquiz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JavaQuziApplication {
+public class JavaQuizApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JavaQuziApplication.class, args);
+		SpringApplication.run(JavaQuizApplication.class, args);
 	}
 
 }
