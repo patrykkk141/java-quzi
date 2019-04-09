@@ -1,4 +1,4 @@
-package pl.patryk.quiz.javaquzi.config;
+package pl.patryk.quiz.javaquiz.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
