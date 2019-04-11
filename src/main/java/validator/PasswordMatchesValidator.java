@@ -1,5 +1,6 @@
 package validator;
 
+import pl.patryk.quiz.javaquiz.model.dto.PasswordDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserCreateDto;
 
 import javax.validation.ConstraintValidator;
@@ -14,7 +15,12 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        UserCreateDto cred = (UserCreateDto) obj;
-        return cred.getPassword().equals(cred.getMatchingPassword());
+        try {
+            UserCreateDto cred = (UserCreateDto) obj;
+            return cred.getPassword().equals(cred.getMatchingPassword());
+        } catch (ClassCastException e) {
+            PasswordDto cred = (PasswordDto) obj;
+            return cred.getPassword().equals(cred.getMatchingPassword());
+        }
     }
 }
