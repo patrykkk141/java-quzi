@@ -2,17 +2,17 @@ package pl.patryk.quiz.javaquiz.model.dto;
 
 import validator.PasswordMatches;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @PasswordMatches
 public class PasswordDto {
 
-    @NotEmpty
+    @NotBlank
     @Size(min = 3, max = 255)
     private String password;
 
-    @NotEmpty
+    @NotBlank
     @Size(min = 3, max = 255)
     private String matchingPassword;
 

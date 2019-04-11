@@ -1,4 +1,4 @@
-package pl.patryk.quiz.javaquzi;
+package pl.patryk.quiz.javaquiz;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

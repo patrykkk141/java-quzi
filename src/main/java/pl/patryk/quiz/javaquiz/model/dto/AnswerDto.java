@@ -1,21 +1,15 @@
-package pl.patryk.quiz.javaquiz.model;
+package pl.patryk.quiz.javaquiz.model.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-@Entity
-public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "answer_id")
+
+public class AnswerDto {
     private long answerId;
-    @Column(nullable = false)
+    @NotBlank
     private String text;
-    @Column(nullable = false)
+    @NotNull
     private Boolean positive;
-
-    @ManyToOne
-    @JoinColumn(name = "question_id")
-    private Question question;
 
     public long getAnswerId() {
         return answerId;
@@ -39,13 +33,5 @@ public class Answer {
 
     public void setPositive(Boolean positive) {
         this.positive = positive;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 }

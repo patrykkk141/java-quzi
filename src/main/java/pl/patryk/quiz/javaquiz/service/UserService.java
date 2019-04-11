@@ -7,6 +7,7 @@ import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,10 @@ public class UserService {
 
     public Optional<User> findUserById(long id) {
         return userRepository.findById(id);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public void save(User user) {

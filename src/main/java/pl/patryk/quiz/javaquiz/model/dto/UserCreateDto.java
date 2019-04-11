@@ -3,19 +3,19 @@ package pl.patryk.quiz.javaquiz.model.dto;
 import validator.PasswordMatches;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @PasswordMatches
 public class UserCreateDto {
 
-    @NotEmpty
+    @NotBlank
     @Size(min = 3, max = 255)
     private String userName;
-    @NotEmpty
+    @NotBlank
     @Size(min = 3, max = 255)
     private String password;
-    @NotEmpty
+    @NotBlank
     @Size(min = 3, max = 255)
     private String matchingPassword;
     @Email

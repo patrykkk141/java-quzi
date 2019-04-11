@@ -14,7 +14,9 @@ import pl.patryk.quiz.javaquiz.service.UserService;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -30,7 +32,6 @@ public class UserController {
 
 
     @PostMapping("/registration")
-    // TODO: 09.04.2019 Dodać walidację dto
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateDto dto) {
         User user = Converter.fromUserCreateDto(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -41,7 +42,13 @@ public class UserController {
         return new ResponseEntity<>(Converter.toUserDto(user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/api/users")
+    public ResponseEntity<List> getAllUsers() {
+        List<User> users = userService.findAll();
+        return new ResponseEntity<>(users.stream().map(Converter::toUserDto).collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/user")
     public ResponseEntity<UserDto> getUserInfo() throws NotFoundException {
         Optional<User> user = userService.getCurrentLoggedUser();
 
@@ -51,7 +58,7 @@ public class UserController {
             throw new NotFoundException("User not found!");
     }
 
-    @PutMapping("/user/reset-password")
+    @PutMapping("/api/user/reset-password")
     public ResponseEntity<UserDto> resetPassword(@Valid @RequestBody PasswordDto dto) throws NotFoundException {
         Optional<User> user = userService.getCurrentLoggedUser();
 
@@ -64,7 +71,8 @@ public class UserController {
             throw new NotFoundException("User not found!");
     }
 
-    @DeleteMapping("user/{id}/delete")
+    @DeleteMapping("/api/secured/user/{id}")
+    // TODO: 11.04.2019 USTAWIC W SECURIT AUTENTYKACJE NA TEN ENDPOINT Z ROLA ADMIN 
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") long id) throws NotFoundException {
         Optional<User> user = userService.findUserById(id);
 

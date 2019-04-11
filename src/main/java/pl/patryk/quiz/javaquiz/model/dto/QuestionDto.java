@@ -1,21 +1,15 @@
-package pl.patryk.quiz.javaquiz.model;
+package pl.patryk.quiz.javaquiz.model.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Entity
-public class Question {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id")
+public class QuestionDto {
     private long questionId;
-    @Column(nullable = false)
+    @NotEmpty
     private String text;
-    @Column(name = "img_url")
     private String imageUrl;
-
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Answer> answers;
+    @NotEmpty
+    private List<AnswerDto> answers;
 
     public long getQuestionId() {
         return questionId;
@@ -41,11 +35,11 @@ public class Question {
         this.imageUrl = imageUrl;
     }
 
-    public List<Answer> getAnswers() {
+    public List<AnswerDto> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<Answer> answers) {
+    public void setAnswers(List<AnswerDto> answers) {
         this.answers = answers;
     }
 }
