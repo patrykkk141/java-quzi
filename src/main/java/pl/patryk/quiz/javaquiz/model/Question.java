@@ -5,10 +5,10 @@ import java.util.List;
 
 @Entity
 public class Question {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "question_id")
+    private long questionId;
     @Column(nullable = false)
     private String text;
     @Column(name = "img_url")
@@ -17,12 +17,12 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;
 
-    public Long getId() {
-        return id;
+    public long getQuestionId() {
+        return questionId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
     }
 
     public String getText() {

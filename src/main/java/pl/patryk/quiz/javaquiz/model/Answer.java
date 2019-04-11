@@ -4,27 +4,26 @@ import javax.persistence.*;
 
 @Entity
 public class Answer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "answer_id")
+    private long answerId;
     @Column(nullable = false)
     private String text;
     @Column(nullable = false)
     private Boolean positive;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "question_id")
     private Question question;
 
-    public Long getId() {
-        return id;
+    public long getAnswerId() {
+        return answerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAnswerId(long answerId) {
+        this.answerId = answerId;
     }
-
     public String getText() {
         return text;
     }

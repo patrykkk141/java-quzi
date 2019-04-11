@@ -4,13 +4,13 @@ import pl.patryk.quiz.javaquiz.enums.RoleType;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id")
+    private long userId;
     @Column(unique = true, nullable = false, name = "username")
     private String userName;
     @Column(nullable = false, name = "password")
@@ -23,17 +23,14 @@ public class User {
     @Column(name = "registration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDate;
-    private Boolean enabled;
+    private Boolean enabled = true;
 
-    @OneToMany(mappedBy = "user")
-    private List<TestHistory> testHistoryList;
-
-    public Long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -82,13 +79,5 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public List<TestHistory> getTestHistoryList() {
-        return testHistoryList;
-    }
-
-    public void setTestHistoryList(List<TestHistory> testHistoryList) {
-        this.testHistoryList = testHistoryList;
     }
 }
