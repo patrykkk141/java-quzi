@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
-import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
-import pl.patryk.quiz.javaquiz.service.AnswerService;
 import pl.patryk.quiz.javaquiz.service.QuestionService;
 
 import javax.validation.Valid;
@@ -21,31 +19,23 @@ import java.util.stream.Collectors;
 public class QuestionController {
 
     private final QuestionService questionService;
-    private final AnswerService answerService;
 
     @Autowired
-    public QuestionController(QuestionService questionService, AnswerService answerService) {
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
-        this.answerService = answerService;
     }
 
     @GetMapping("/question/all")
-    public ResponseEntity<List> getAllQuestion() {
+    public ResponseEntity<List> getAllQuestion(@RequestParam(value = "show_answers") boolean showAnswers) {
         List<Question> questions = questionService.findAll();
-
-        return new ResponseEntity<>(questions.stream().map(x -> Converter.toQuestionDto(x, false)).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(questions.stream().map(x -> Converter.toQuestionDto(x, showAnswers)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/question/{id}")
-    public ResponseEntity<QuestionDto> getQuestion(@PathVariable("id") long id, @RequestParam(value = "show_answers", required = false) Boolean showAnswers) throws NotFoundException {
+    public ResponseEntity<QuestionDto> getQuestion(@PathVariable("id") long id, @RequestParam(value = "show_answers", required = true) Boolean showAnswers) throws NotFoundException {
         Optional<Question> question = questionService.findById(id);
-        if (question.isPresent() && showAnswers != null && showAnswers) {
-            List<AnswerDto> answers = answerService.findAllByQuestion(question.get()).stream().map(Converter::toAnswerDto).collect(Collectors.toList());
-            QuestionDto dto = Converter.toQuestionDto(question.get(), false);
-            dto.setAnswers(answers);
-            return new ResponseEntity<>(dto, HttpStatus.OK);
-        } else if (question.isPresent())
-            return new ResponseEntity<>(Converter.toQuestionDto(question.get(), false), HttpStatus.OK);
+        if (question.isPresent())
+            return new ResponseEntity<>(Converter.toQuestionDto(question.get(), showAnswers), HttpStatus.OK);
 
         throw new NotFoundException("Question not found");
     }

@@ -13,7 +13,7 @@ public class Answer {
     @Column(nullable = false)
     private Boolean positive;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "question_id")
     private Question question;
 
