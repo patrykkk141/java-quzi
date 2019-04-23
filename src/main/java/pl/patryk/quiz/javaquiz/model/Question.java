@@ -14,7 +14,7 @@ public class Question {
     @Column(name = "img_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Answer> answers;
 
     public long getQuestionId() {

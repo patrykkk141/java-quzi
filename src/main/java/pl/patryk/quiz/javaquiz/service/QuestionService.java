@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.patryk.quiz.javaquiz.model.Question;
 import pl.patryk.quiz.javaquiz.repository.QuestionRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,4 +34,18 @@ public class QuestionService {
     public void delete(Question question) {
         questionRepository.delete(question);
     }
+
+    public List<Question> getQuestionsByQuantityOfPositiveAndNegativeAnswers(Long positiveAnswers, Long negativeAnswers) {
+        List<Question> questions = questionRepository.findQuestionsByQuantityOfPositiveAndNegativeAnswers(positiveAnswers, negativeAnswers);
+        Collections.shuffle(questions);
+        return questions;
+    }
+
+    public List<Question> getRandomQuestionsByAnswersQuantity(Long answersQuantity) {
+        List<Question> questions = questionRepository.findQuestionWithQuantityOfAnswersGraterThan(answersQuantity);
+        Collections.shuffle(questions);
+        return questions;
+    }
+
+
 }

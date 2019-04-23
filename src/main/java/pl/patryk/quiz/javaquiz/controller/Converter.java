@@ -1,15 +1,12 @@
 package pl.patryk.quiz.javaquiz.controller;
 
 import pl.patryk.quiz.javaquiz.enums.RoleType;
-import pl.patryk.quiz.javaquiz.model.Answer;
-import pl.patryk.quiz.javaquiz.model.Question;
-import pl.patryk.quiz.javaquiz.model.User;
+import pl.patryk.quiz.javaquiz.model.*;
 import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserCreateDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserDto;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 class Converter {
@@ -49,7 +46,7 @@ class Converter {
         AnswerDto dto = new AnswerDto();
         dto.setAnswerId(answer.getAnswerId());
         dto.setText(answer.getText());
-        dto.setPositive(answer.getPositive());
+        dto.setAnswerType(answer.getAnswerType());
 
         return dto;
     }
@@ -58,7 +55,7 @@ class Converter {
         Answer answer = new Answer();
 
         answer.setText(dto.getText());
-        answer.setPositive(dto.getPositive());
+        answer.setAnswerType(dto.getAnswerType());
 
         return answer;
     }
@@ -71,5 +68,4 @@ class Converter {
 
         return question;
     }
-
 }

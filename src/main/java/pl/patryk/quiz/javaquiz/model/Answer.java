@@ -1,5 +1,7 @@
 package pl.patryk.quiz.javaquiz.model;
 
+import pl.patryk.quiz.javaquiz.enums.AnswerType;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,10 +12,11 @@ public class Answer {
     private long answerId;
     @Column(nullable = false)
     private String text;
-    @Column(nullable = false)
-    private Boolean positive;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "answer_type")
+    private AnswerType answerType;
 
-    @ManyToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -33,12 +36,12 @@ public class Answer {
         this.text = text;
     }
 
-    public Boolean getPositive() {
-        return positive;
+    public AnswerType getAnswerType() {
+        return answerType;
     }
 
-    public void setPositive(Boolean positive) {
-        this.positive = positive;
+    public void setAnswerType(AnswerType answerType) {
+        this.answerType = answerType;
     }
 
     public Question getQuestion() {
