@@ -1,6 +1,6 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
-import validator.PasswordMatches;
+import pl.patryk.quiz.javaquiz.validator.PasswordMatches;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

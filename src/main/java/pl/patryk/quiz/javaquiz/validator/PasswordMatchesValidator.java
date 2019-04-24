@@ -1,4 +1,4 @@
-package validator;
+package pl.patryk.quiz.javaquiz.validator;
 
 import pl.patryk.quiz.javaquiz.model.dto.PasswordDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserCreateDto;

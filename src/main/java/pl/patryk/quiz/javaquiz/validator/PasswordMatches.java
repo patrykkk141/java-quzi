@@ -1,4 +1,4 @@
-package validator;
+package pl.patryk.quiz.javaquiz.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
