@@ -28,7 +28,6 @@ public class QuizController {
                                      @RequestParam(value = "answers_quantity", required = true) int answersQuantity) {
         Quiz test = quizService.generateTest(type, length, answersQuantity);
         quizService.save(test);
-
         QuizDto dto = Converter.toQuizDto(test, false);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }

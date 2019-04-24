@@ -34,10 +34,4 @@ public class AnswerService {
         return answers;
     }
 
-    public List<Answer> getRandomAnswersByQuestion(Question question) {
-        List<Answer> answers = findAllByQuestion(question);
-        Collections.shuffle(answers);
-        return answers;
-    }
-
 }

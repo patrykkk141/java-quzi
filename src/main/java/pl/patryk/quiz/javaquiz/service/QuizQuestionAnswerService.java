@@ -31,7 +31,7 @@ public class QuizQuestionAnswerService {
             return answers.stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).collect(Collectors.toList());
 
         } else
-            return answerService.getRandomAnswersByQuestion(question.getQuestion()).subList(0, answersQuantity).stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).collect(Collectors.toList());
+            return answerService.findAllByQuestion(question.getQuestion()).subList(0, answersQuantity - 1).stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).collect(Collectors.toList());
     }
 
 }
