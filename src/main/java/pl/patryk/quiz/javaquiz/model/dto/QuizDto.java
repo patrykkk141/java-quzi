@@ -6,6 +6,7 @@ import java.util.List;
 public class QuizDto {
     private long quizId;
     private Date date;
+    private int score;
     private List<QuizQuestionDto> questionList;
 
     public long getQuizId() {
@@ -22,6 +23,14 @@ public class QuizDto {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public List<QuizQuestionDto> getQuestionList() {

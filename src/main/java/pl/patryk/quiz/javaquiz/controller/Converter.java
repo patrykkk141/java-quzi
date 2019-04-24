@@ -88,6 +88,7 @@ import java.util.stream.Collectors;
     static QuizDto toQuizDto(Quiz quiz, boolean showAnswersType) {
         QuizDto dto = new QuizDto();
         dto.setQuizId(quiz.getQuizId());
+        dto.setScore(quiz.getScore());
         dto.setDate(quiz.getDate());
         dto.setQuestionList(quiz.getQuizQuestions().stream().map(x -> Converter.toQuizQuestionDto(x, showAnswersType)).collect(Collectors.toList()));
         return dto;

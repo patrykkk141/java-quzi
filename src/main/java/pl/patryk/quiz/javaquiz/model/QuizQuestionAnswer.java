@@ -29,6 +29,14 @@ public class QuizQuestionAnswer {
         this.quizQuestionAnswerId = quizQuestionAnswerId;
     }
 
+    public boolean isMarked() {
+        return marked;
+    }
+
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
+
     public Answer getAnswer() {
         return answer;
     }
