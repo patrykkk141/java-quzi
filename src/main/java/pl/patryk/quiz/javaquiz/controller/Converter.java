@@ -68,7 +68,7 @@ import java.util.stream.Collectors;
 
     static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
         QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
-        dto.setAnswerId(dto.getAnswerId());
+        dto.setAnswerId(answer.getQuizQuestionAnswerId());
         dto.setText(answer.getAnswer().getText());
         if (showAnswerType) dto.setAnswerType(answer.getAnswer().getAnswerType());
 
@@ -80,7 +80,7 @@ import java.util.stream.Collectors;
         dto.setQuestionId(question.getQuizQuestionId());
         dto.setText(question.getQuestion().getText());
         dto.setImageUrl(question.getQuestion().getImageUrl());
-        dto.setAnswerList(question.getQuestion().getAnswers().stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).map(y -> Converter.toQuizQuestionAnswerDto(y, showAnswersType)).collect(Collectors.toList()));
+        dto.setAnswerList(question.getQuizQuestionAnswers().stream().map(x -> Converter.toQuizQuestionAnswerDto(x, showAnswersType)).collect(Collectors.toList()));
 
         return dto;
     }
