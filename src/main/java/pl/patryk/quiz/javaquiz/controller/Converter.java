@@ -6,11 +6,10 @@ import pl.patryk.quiz.javaquiz.model.dto.*;
 
 import java.util.stream.Collectors;
 
- public class Converter {
+public class Converter {
 
     static UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
-
         dto.setUserName(user.getUserName());
         dto.setEmail(user.getEmail());
         dto.setRegistrationDate(user.getRegistrationDate());
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 
     static User fromUserCreateDto(UserCreateDto dto) {
         User user = new User();
-
         user.setEmail(dto.getEmail());
         user.setRole(RoleType.USER);
         user.setUserName(dto.getUserName());
@@ -50,7 +48,6 @@ import java.util.stream.Collectors;
 
     static Answer fromAnswerDto(AnswerDto dto) {
         Answer answer = new Answer();
-
         answer.setText(dto.getText());
         answer.setAnswerType(dto.getAnswerType());
 
@@ -59,7 +56,6 @@ import java.util.stream.Collectors;
 
     static Question fromQuestionDto(QuestionDto dto) {
         Question question = new Question();
-
         question.setText(dto.getText());
         question.setImageUrl(dto.getImageUrl());
 
@@ -80,7 +76,7 @@ import java.util.stream.Collectors;
         dto.setQuestionId(question.getQuizQuestionId());
         dto.setText(question.getQuestion().getText());
         dto.setImageUrl(question.getQuestion().getImageUrl());
-        dto.setAnswerList(question.getQuestion().getAnswers().stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).map(y -> Converter.toQuizQuestionAnswerDto(y, showAnswersType)).collect(Collectors.toList()));
+        dto.setAnswerList(question.getQuizQuestionAnswers().stream().map((x) -> Converter.toQuizQuestionAnswerDto(x, showAnswersType)).collect(Collectors.toList()));
 
         return dto;
     }
@@ -90,12 +86,12 @@ import java.util.stream.Collectors;
         dto.setQuizId(quiz.getQuizId());
         dto.setDate(quiz.getDate());
         dto.setQuestionList(quiz.getQuizQuestions().stream().map(x -> Converter.toQuizQuestionDto(x, showAnswersType)).collect(Collectors.toList()));
+
         return dto;
     }
 
     static public QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
         QuizQuestion quizQuestion = new QuizQuestion();
-
         quizQuestion.setQuestion(question);
         quizQuestion.setQuiz(quiz);
 
