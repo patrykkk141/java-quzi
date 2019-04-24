@@ -2,14 +2,11 @@ package pl.patryk.quiz.javaquiz.controller;
 
 import pl.patryk.quiz.javaquiz.enums.RoleType;
 import pl.patryk.quiz.javaquiz.model.*;
-import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
-import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
-import pl.patryk.quiz.javaquiz.model.dto.UserCreateDto;
-import pl.patryk.quiz.javaquiz.model.dto.UserDto;
+import pl.patryk.quiz.javaquiz.model.dto.*;
 
 import java.util.stream.Collectors;
 
-class Converter {
+ public class Converter {
 
     static UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
@@ -67,5 +64,49 @@ class Converter {
         question.setImageUrl(dto.getImageUrl());
 
         return question;
+    }
+
+    static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
+        QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
+        dto.setAnswerId(dto.getAnswerId());
+        dto.setText(answer.getAnswer().getText());
+        if (showAnswerType) dto.setAnswerType(answer.getAnswer().getAnswerType());
+
+        return dto;
+    }
+
+    static QuizQuestionDto toQuizQuestionDto(QuizQuestion question, boolean showAnswersType) {
+        QuizQuestionDto dto = new QuizQuestionDto();
+        dto.setQuestionId(question.getQuizQuestionId());
+        dto.setText(question.getQuestion().getText());
+        dto.setImageUrl(question.getQuestion().getImageUrl());
+        dto.setAnswerList(question.getQuestion().getAnswers().stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).map(y -> Converter.toQuizQuestionAnswerDto(y, showAnswersType)).collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    static QuizDto toQuizDto(Quiz quiz, boolean showAnswersType) {
+        QuizDto dto = new QuizDto();
+        dto.setQuizId(quiz.getQuizId());
+        dto.setDate(quiz.getDate());
+        dto.setQuestionList(quiz.getQuizQuestions().stream().map(x -> Converter.toQuizQuestionDto(x, showAnswersType)).collect(Collectors.toList()));
+        return dto;
+    }
+
+    static public QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
+        QuizQuestion quizQuestion = new QuizQuestion();
+
+        quizQuestion.setQuestion(question);
+        quizQuestion.setQuiz(quiz);
+
+        return quizQuestion;
+    }
+
+    static public QuizQuestionAnswer toQuizQuestionAnswer(Answer answer, QuizQuestion question) {
+        QuizQuestionAnswer quizQuestionAnswer = new QuizQuestionAnswer();
+        quizQuestionAnswer.setAnswer(answer);
+        quizQuestionAnswer.setQuizQuestion(question);
+
+        return quizQuestionAnswer;
     }
 }

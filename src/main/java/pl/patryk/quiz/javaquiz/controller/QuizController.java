@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.model.Quiz;
+import pl.patryk.quiz.javaquiz.model.dto.QuizDto;
 import pl.patryk.quiz.javaquiz.service.QuizService;
+
 
 @RestController
 public class QuizController {
@@ -25,8 +27,8 @@ public class QuizController {
                                      @RequestParam(value = "type", required = true) QuizType type,
                                      @RequestParam(value = "answers_quantity", required = true) int answersQuantity) {
         Quiz test = quizService.generateTest(type, length, answersQuantity);
-
-        test.setUser(null);
-        return null;
+        quizService.save(test);
+        QuizDto dto = Converter.toQuizDto(test, false);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

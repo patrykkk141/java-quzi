@@ -10,11 +10,14 @@ public class QuizQuestionAnswer {
     @Column(name = "quiz_question_answer_id")
     private long quizQuestionAnswerId;
 
-    @OneToOne
+    @Column(columnDefinition="tinyint(1) default 1")
+    private boolean marked;
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_question_id")
     private QuizQuestion quizQuestion;
 

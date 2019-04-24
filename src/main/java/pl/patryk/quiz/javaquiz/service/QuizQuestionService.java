@@ -2,6 +2,7 @@ package pl.patryk.quiz.javaquiz.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.patryk.quiz.javaquiz.controller.Converter;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.model.Question;
 import pl.patryk.quiz.javaquiz.model.Quiz;
@@ -31,7 +32,7 @@ public class QuizQuestionService {
         else questions = questionService.getRandomQuestionsByAnswersQuantity((long) answersQuantity);
 
         if (length <= questions.size()) { //if db has enough question map to QuizQuestion and set random answers to each question
-            List<QuizQuestion> quizQuestions = questions.stream().limit(length).map((x) -> toQuizQuestion(x, quiz)).collect(Collectors.toList());
+            List<QuizQuestion> quizQuestions = questions.stream().limit(length).map((x) -> Converter.toQuizQuestion(x, quiz)).collect(Collectors.toList());
 
             for (QuizQuestion x : quizQuestions) {
                 x.setQuizQuestionAnswers(quizQuestionAnswerService.generateRandomAnswers(x, type, answersQuantity));
@@ -41,14 +42,6 @@ public class QuizQuestionService {
         throw new InvalidParameterException("There are not enough questions in database! ");
     }
 
-    // map Question to QuizQuestion
-    private QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
-        QuizQuestion quizQuestion = new QuizQuestion();
 
-        quizQuestion.setQuestion(question);
-        quizQuestion.setQuiz(quiz);
-
-        return quizQuestion;
-    }
 
 }

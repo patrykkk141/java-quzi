@@ -62,9 +62,3 @@ VALUES (1, '2019-04-09 18:04:59', null, 1);
 INSERT INTO `quiz_question`
 VALUES (1, 1, 1),
        (2, 2, 1);
-
-INSERT INTO `quiz_question_answer`
-VALUES (1, 1, 1),
-       (2, 2, 1),
-       (3, 3, 1),
-       (4, 4, 1);

@@ -4,17 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.model.Quiz;
+import pl.patryk.quiz.javaquiz.repository.QuizRepository;
 
 import java.util.Date;
 
 @Service
 public class QuizService {
 
+    private final QuizRepository quizRepository;
     private final QuizQuestionService quizQuestionService;
 
     @Autowired
-    public QuizService(QuizQuestionService quizQuestionService) {
+    public QuizService(QuizRepository quizRepository, QuizQuestionService quizQuestionService) {
+        this.quizRepository = quizRepository;
         this.quizQuestionService = quizQuestionService;
+    }
+
+    public void save(Quiz quiz) {
+        quizRepository.save(quiz);
     }
 
     //Generating test

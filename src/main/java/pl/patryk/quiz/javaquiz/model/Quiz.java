@@ -18,7 +18,7 @@ public class Quiz {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<QuizQuestion> quizQuestions;
 
     public long getQuizId() {
