@@ -28,6 +28,12 @@ public class AnswerService {
         return answerRepository.findAllByQuestionAndAnswerType(question, answerType);
     }
 
+    public List<Answer> getRandomAnswersByQuestion(Question question) {
+        List<Answer> answers = findAllByQuestion(question);
+        Collections.shuffle(answers);
+        return answers;
+    }
+
     public List<Answer> getRandomAnswersByQuestionAndAnswerType(Question question, AnswerType type) {
         List<Answer> answers = findAllByQuestionAndAnswerType(question, type);
         Collections.shuffle(answers);
