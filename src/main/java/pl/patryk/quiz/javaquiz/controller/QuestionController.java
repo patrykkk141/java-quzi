@@ -25,13 +25,13 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @GetMapping("/question/all")
+    @GetMapping("/api/question/all")
     public ResponseEntity<List> getAllQuestion(@RequestParam(value = "show_answers") boolean showAnswers) {
         List<Question> questions = questionService.findAll();
         return new ResponseEntity<>(questions.stream().map(x -> Converter.toQuestionDto(x, showAnswers)).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @GetMapping("/question/{id}")
+    @GetMapping("/api/question/{id}")
     public ResponseEntity<QuestionDto> getQuestion(@PathVariable("id") long id, @RequestParam(value = "show_answers", required = true) Boolean showAnswers) throws NotFoundException {
         Optional<Question> question = questionService.findById(id);
         if (question.isPresent())
@@ -40,7 +40,7 @@ public class QuestionController {
         throw new NotFoundException("Question not found");
     }
 
-    @PostMapping("/question")
+    @PostMapping("/api/question")
     public ResponseEntity<QuestionDto> createQuestion(@RequestBody @Valid QuestionDto dto) {
         Question question = Converter.fromQuestionDto(dto);
         List<Answer> answers = dto.getAnswers().stream().map(Converter::fromAnswerDto).collect(Collectors.toList());
@@ -52,7 +52,7 @@ public class QuestionController {
         return new ResponseEntity<>(Converter.toQuestionDto(question, true), HttpStatus.CREATED);
     }
 
-    @PutMapping("/question/{id}")
+    @PutMapping("/api/question/{id}")
     public ResponseEntity<QuestionDto> updateQuestion(@PathVariable("id") long id, @RequestBody @Valid QuestionDto dto) throws NotFoundException {
         Optional<Question> optional = questionService.findById(id);
         if (optional.isPresent()) {
@@ -68,7 +68,7 @@ public class QuestionController {
         throw new NotFoundException("Question not found!");
     }
 
-    @DeleteMapping("/question/{id}")
+    @DeleteMapping("/api/question/{id}")
     public ResponseEntity<QuestionDto> deleteQuestion(@PathVariable("id") long id) throws NotFoundException {
         Optional<Question> question = questionService.findById(id);
         if (question.isPresent()) {

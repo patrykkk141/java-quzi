@@ -55,10 +55,3 @@ INSERT INTO `answer` (`answer_id`, `answer_type`, `text`, `question_id`) VALUES
   (39, 'POSITIVE', 'public interface Interfacename extends Otherinterface1, Otherinterface2 ', 10),
   (40, 'NEGATIVE', 'public interface Interfacename implements Otherinterface ', 10),
   (41, 'NEGATIVE', 'public interface Interfacename implements Otherinterface1, Otherinterface2 ', 10);
-
-INSERT INTO `quiz`
-VALUES (1, '2019-04-09 18:04:59', null, 1);
-
-INSERT INTO `quiz_question`
-VALUES (1, 1, 1),
-       (2, 2, 1);

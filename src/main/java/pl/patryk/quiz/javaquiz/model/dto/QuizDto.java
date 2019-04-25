@@ -7,6 +7,7 @@ public class QuizDto {
     private long quizId;
     private Date date;
     private int score;
+    private long userId;
     private List<QuizQuestionDto> questionList;
 
     public long getQuizId() {
@@ -39,5 +40,13 @@ public class QuizDto {
 
     public void setQuestionList(List<QuizQuestionDto> questionList) {
         this.questionList = questionList;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

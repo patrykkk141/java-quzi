@@ -7,6 +7,7 @@ import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.model.Quiz;
 import pl.patryk.quiz.javaquiz.model.QuizQuestion;
 import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
+import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.QuizRepository;
 
 import java.util.Date;
@@ -25,16 +26,23 @@ public class QuizService {
         this.quizQuestionService = quizQuestionService;
     }
 
-    public void save(Quiz quiz) {
-        quizRepository.save(quiz);
-    }
-
     public Optional<Quiz> findById(long id) {
         return quizRepository.findById(id);
     }
 
-    //Generating test
-    public Quiz generateTest(QuizType type, int length, int answersQuantity) {
+    public void save(Quiz quiz) {
+        quizRepository.save(quiz);
+    }
+
+    public List<Quiz> findAllByUser(User user) {
+        return quizRepository.findAllByUser(user);
+    }
+
+    public Optional<Quiz> findByUserAndQuizId(User user, long id) {
+        return quizRepository.findByUserAndQuizId(user, id);
+    }
+
+    public Quiz generateQuiz(QuizType type, int length, int answersQuantity) {
         Quiz test = new Quiz();
         test.setDate(new Date(System.currentTimeMillis()));
         test.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, test, answersQuantity));

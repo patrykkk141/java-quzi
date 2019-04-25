@@ -58,7 +58,8 @@ public class UserController {
             throw new NotFoundException("User not found!");
     }
 
-    @PutMapping("/api/user/reset-password")
+    // TODO: 24.04.2019 TO POWINNO BYC DLA NIEZALOGOWANEGO USERA 
+/*    @PutMapping("/api/user/reset-password")
     public ResponseEntity<UserDto> resetPassword(@Valid @RequestBody PasswordDto dto) throws NotFoundException {
         Optional<User> user = userService.getCurrentLoggedUser();
 
@@ -69,14 +70,13 @@ public class UserController {
             return new ResponseEntity<>(Converter.toUserDto(user.get()), HttpStatus.OK);
         } else
             throw new NotFoundException("User not found!");
-    }
+    }*/
 
     @DeleteMapping("/api/secured/user/{id}")
-    // TODO: 11.04.2019 USTAWIC W SECURIT AUTENTYKACJE NA TEN ENDPOINT Z ROLA ADMIN 
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") long id) throws NotFoundException {
         Optional<User> user = userService.findUserById(id);
-
-        if (user.isPresent()) {
+        
+        if (user.isPresent() && user.get().equals(userService.getCurrentLoggedUser().get())) {
             userService.delete(user.get());
             return new ResponseEntity<>(Converter.toUserDto(user.get()), HttpStatus.OK);
         } else

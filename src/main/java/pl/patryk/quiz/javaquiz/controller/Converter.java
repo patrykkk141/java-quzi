@@ -6,7 +6,7 @@ import pl.patryk.quiz.javaquiz.model.dto.*;
 
 import java.util.stream.Collectors;
 
- public class Converter {
+public class Converter {
 
     static UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
@@ -69,6 +69,7 @@ import java.util.stream.Collectors;
     static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
         QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
         dto.setAnswerId(answer.getQuizQuestionAnswerId());
+        dto.setMarked(answer.isMarked());
         dto.setText(answer.getAnswer().getText());
         if (showAnswerType) dto.setAnswerType(answer.getAnswer().getAnswerType());
 
@@ -90,6 +91,7 @@ import java.util.stream.Collectors;
         dto.setQuizId(quiz.getQuizId());
         dto.setScore(quiz.getScore());
         dto.setDate(quiz.getDate());
+        dto.setUserId(quiz.getUser().getUserId());
         dto.setQuestionList(quiz.getQuizQuestions().stream().map(x -> Converter.toQuizQuestionDto(x, showAnswersType)).collect(Collectors.toList()));
         return dto;
     }

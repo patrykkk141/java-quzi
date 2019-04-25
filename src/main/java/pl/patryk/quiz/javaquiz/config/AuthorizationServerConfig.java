@@ -28,18 +28,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()").passwordEncoder(passwordEncoder);
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("client")
-                .secret(passwordEncoder.encode("client"))
-                .scopes("read", "write")
-                .authorizedGrantTypes("password")
+        clients
+                .inMemory()
+                .withClient("frontendClientId")
+                .secret(passwordEncoder.encode("frontendClientSecret"))
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .accessTokenValiditySeconds(3600)
-                .refreshTokenValiditySeconds(28 * 24 * 3600);
+                .refreshTokenValiditySeconds(28 * 24 * 3600)
+                .scopes("read");
     }
 
     @Override
@@ -47,8 +48,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
     }
 
+
     @Bean
     public TokenStore tokenStore() {
         return new InMemoryTokenStore();
     }
-} 
+}
