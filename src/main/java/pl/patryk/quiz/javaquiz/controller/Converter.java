@@ -90,7 +90,7 @@ public class Converter {
         QuizDto dto = new QuizDto();
         dto.setQuizId(quiz.getQuizId());
         dto.setScore(quiz.getScore());
-        dto.setDate(quiz.getDate());
+        dto.setStartDate(quiz.getGenerationDate());
         dto.setUserId(quiz.getUser().getUserId());
         dto.setQuestionList(quiz.getQuizQuestions().stream().map(x -> Converter.toQuizQuestionDto(x, showAnswersType)).collect(Collectors.toList()));
         return dto;

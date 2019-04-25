@@ -1,11 +1,11 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class QuizDto {
     private long quizId;
-    private Date date;
+    private Timestamp startDate;
     private int score;
     private long userId;
     private List<QuizQuestionDto> questionList;
@@ -18,12 +18,12 @@ public class QuizDto {
         this.quizId = quizId;
     }
 
-    public Date getDate() {
-        return date;
+    public Timestamp getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
     }
 
     public int getScore() {

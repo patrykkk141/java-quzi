@@ -1,6 +1,10 @@
 package pl.patryk.quiz.javaquiz.model;
 
+import pl.patryk.quiz.javaquiz.enums.QuizType;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -9,9 +13,11 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long quizId;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-    @Column(name = "score", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private QuizType quizType;
+
+    private Timestamp generationDate;
+    @Column(name = "score")
     private int score;
 
     @ManyToOne
@@ -29,12 +35,20 @@ public class Quiz {
         this.quizId = quizId;
     }
 
-    public Date getDate() {
-        return date;
+    public QuizType getQuizType() {
+        return quizType;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setQuizType(QuizType quizType) {
+        this.quizType = quizType;
+    }
+
+    public Timestamp getGenerationDate() {
+        return generationDate;
+    }
+
+    public void setGenerationDate(Timestamp generationDate) {
+        this.generationDate = generationDate;
     }
 
     public int getScore() {

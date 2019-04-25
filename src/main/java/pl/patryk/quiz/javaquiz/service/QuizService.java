@@ -10,6 +10,7 @@ import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
 import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.QuizRepository;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class QuizService {
 
     public Quiz generateQuiz(QuizType type, int length, int answersQuantity) {
         Quiz test = new Quiz();
-        test.setDate(new Date(System.currentTimeMillis()));
+        test.setGenerationDate(new Timestamp(System.currentTimeMillis()));
         test.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, test, answersQuantity));
 
         return test;
