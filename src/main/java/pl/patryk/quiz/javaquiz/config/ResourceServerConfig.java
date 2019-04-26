@@ -13,8 +13,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/sign-up").permitAll()
-                .anyRequest().authenticated().and()
+                .antMatchers("/api/sign-up").permitAll()
+                .antMatchers("/api/**").authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .csrf().disable();

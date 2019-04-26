@@ -31,7 +31,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/registration")
+    @PostMapping("/api/sign-up")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateDto dto) {
         User user = Converter.fromUserCreateDto(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -72,7 +72,7 @@ public class UserController {
             throw new NotFoundException("User not found!");
     }*/
 
-    @DeleteMapping("/api/secured/user/{id}")
+    @DeleteMapping("/api/user/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") long id) throws NotFoundException {
         Optional<User> user = userService.findUserById(id);
         
