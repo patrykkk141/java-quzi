@@ -42,7 +42,9 @@ public class QuizQuestionAnswerService {
             List<QuizQuestionAnswerDto> a2 = q2.get(i).getAnswerList();
 
             for (int j = 0; j < a1.size(); j++) {
-                if (a2.get(j).isMarked()) a1.get(j).setMarked(true);
+                if (a2.get(j).getMarked() == null) break;
+                else if (a2.get(j).getMarked()) a1.get(j).setMarked(true);
+                else if (!a2.get(j).getMarked()) a1.get(j).setMarked(false);
             }
         }
     }

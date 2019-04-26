@@ -58,8 +58,11 @@ public class QuizService {
             List<QuizQuestionAnswer> ans = x.getQuizQuestionAnswers();
             boolean allCorrect = true;
             for (QuizQuestionAnswer y : ans) {
-                if (y.isMarked() && y.getAnswer().getAnswerType() == AnswerType.NEGATIVE ||
-                        !y.isMarked() && y.getAnswer().getAnswerType() == AnswerType.POSITIVE) {
+                if (y.getMarked() == null) {
+                    allCorrect = false;
+                    break;
+                } else if (y.getMarked() && y.getAnswer().getAnswerType() == AnswerType.NEGATIVE ||
+                        !y.getMarked() && y.getAnswer().getAnswerType() == AnswerType.POSITIVE) {
                     allCorrect = false;
                     break;
                 }

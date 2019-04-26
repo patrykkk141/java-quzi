@@ -25,7 +25,7 @@ public class QuizQuestionService {
     }
 
     // generate random questions by QuizType , quiz length and quantity of answers
-    List<QuizQuestion> generateRandomQuestions(int length, QuizType type, Quiz quiz, int answersQuantity) throws InvalidParameterException {
+    List<QuizQuestion> generateRandomQuestions(int length, QuizType type, Quiz quiz, int answersQuantity)  {
         List<Question> questions;
         if (type == QuizType.SINGLE) // if SINGLE find questions with at least 1 positive answer else find questions with right number of answers
             questions = questionService.getQuestionsByQuantityOfPositiveAndNegativeAnswers(1L, (long) (answersQuantity - 1));

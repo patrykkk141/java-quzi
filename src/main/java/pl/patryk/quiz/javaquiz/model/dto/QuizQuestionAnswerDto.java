@@ -1,13 +1,13 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
 public class QuizQuestionAnswerDto extends AnswerDto {
-    private boolean marked;
+    private Boolean marked;
 
-    public boolean isMarked() {
+    public Boolean getMarked() {
         return marked;
     }
 
-    public void setMarked(boolean marked) {
+    public void setMarked(Boolean marked) {
         this.marked = marked;
     }
 }

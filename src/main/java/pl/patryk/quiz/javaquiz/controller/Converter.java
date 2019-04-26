@@ -69,7 +69,7 @@ public class Converter {
     static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
         QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
         dto.setAnswerId(answer.getQuizQuestionAnswerId());
-        dto.setMarked(answer.isMarked());
+        dto.setMarked(answer.getMarked());
         dto.setText(answer.getAnswer().getText());
         if (showAnswerType) dto.setAnswerType(answer.getAnswer().getAnswerType());
 
@@ -89,8 +89,10 @@ public class Converter {
     static QuizDto toQuizDto(Quiz quiz, boolean showAnswersType) {
         QuizDto dto = new QuizDto();
         dto.setQuizId(quiz.getQuizId());
+        dto.setQuizTimeInMillis(quiz.getQuizTimeInMillis());
         dto.setScore(quiz.getScore());
-        dto.setStartDate(quiz.getGenerationDate());
+        dto.setMaxScore(quiz.getMaxScore());
+        dto.setGenerationDate(quiz.getGenerationDate());
         dto.setUserId(quiz.getUser().getUserId());
         dto.setQuestionList(quiz.getQuizQuestions().stream().map(x -> Converter.toQuizQuestionDto(x, showAnswersType)).collect(Collectors.toList()));
         return dto;

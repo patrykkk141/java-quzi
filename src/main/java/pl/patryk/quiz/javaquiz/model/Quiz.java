@@ -15,8 +15,12 @@ public class Quiz {
     private long quizId;
     @Enumerated(EnumType.STRING)
     private QuizType quizType;
-
+    @Column(name="generation_date")
     private Timestamp generationDate;
+    @Column(name = "quiz_time_in_millis")
+    private long quizTimeInMillis;
+    @Column(name = "max_score")
+    private int maxScore;
     @Column(name = "score")
     private int score;
 
@@ -49,6 +53,22 @@ public class Quiz {
 
     public void setGenerationDate(Timestamp generationDate) {
         this.generationDate = generationDate;
+    }
+
+    public long getQuizTimeInMillis() {
+        return quizTimeInMillis;
+    }
+
+    public void setQuizTimeInMillis(long quizTimeInMillis) {
+        this.quizTimeInMillis = quizTimeInMillis;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
     }
 
     public int getScore() {

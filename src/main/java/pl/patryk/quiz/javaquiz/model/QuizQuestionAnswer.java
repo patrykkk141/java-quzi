@@ -9,10 +9,7 @@ public class QuizQuestionAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_question_answer_id")
     private long quizQuestionAnswerId;
-
-    @Column(columnDefinition="tinyint(1) default 1")
-    private boolean marked;
-
+    private Boolean marked;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "answer_id")
     private Answer answer;
@@ -29,11 +26,11 @@ public class QuizQuestionAnswer {
         this.quizQuestionAnswerId = quizQuestionAnswerId;
     }
 
-    public boolean isMarked() {
+    public Boolean getMarked() {
         return marked;
     }
 
-    public void setMarked(boolean marked) {
+    public void setMarked(Boolean marked) {
         this.marked = marked;
     }
 

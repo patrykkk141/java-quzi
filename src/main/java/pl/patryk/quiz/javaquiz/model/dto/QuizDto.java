@@ -1,13 +1,22 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
 public class QuizDto {
+    @NotNull
     private long quizId;
-    private Timestamp startDate;
+    @NotNull
+    private Timestamp generationDate;
+    @NotNull
+    private long quizTimeInMillis;
     private int score;
+    @NotNull
+    private int maxScore;
     private long userId;
+    @NotEmpty
     private List<QuizQuestionDto> questionList;
 
     public long getQuizId() {
@@ -18,12 +27,20 @@ public class QuizDto {
         this.quizId = quizId;
     }
 
-    public Timestamp getStartDate() {
-        return startDate;
+    public Timestamp getGenerationDate() {
+        return generationDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
+    public void setGenerationDate(Timestamp generationDate) {
+        this.generationDate = generationDate;
+    }
+
+    public long getQuizTimeInMillis() {
+        return quizTimeInMillis;
+    }
+
+    public void setQuizTimeInMillis(long quizTimeInMillis) {
+        this.quizTimeInMillis = quizTimeInMillis;
     }
 
     public int getScore() {
@@ -40,6 +57,14 @@ public class QuizDto {
 
     public void setQuestionList(List<QuizQuestionDto> questionList) {
         this.questionList = questionList;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
     }
 
     public long getUserId() {
