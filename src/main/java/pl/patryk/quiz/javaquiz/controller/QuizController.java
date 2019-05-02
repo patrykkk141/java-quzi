@@ -15,6 +15,7 @@ import pl.patryk.quiz.javaquiz.service.QuizService;
 import pl.patryk.quiz.javaquiz.service.UserService;
 
 import javax.validation.Valid;
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,16 +42,18 @@ public class QuizController {
                                                           @RequestParam(value = "type") QuizType type,
                                                           @RequestParam(value = "answers_quantity") int answersQuantity,
                                                           @RequestParam(value = "quiz_time_in_millis") long quizTime) throws BadRequestException, NotFoundException {
-        if (length < 1 || answersQuantity < 2)
-            throw new BadRequestException("Invalid request param, length must be grater than 0 and answersQuantity must be grater than 1");
-        Quiz quiz = quizService.generateQuiz(type, length, answersQuantity);
-        quiz.setUser(userService.getCurrentLoggedUser().get());
-        quiz.setMaxScore(quiz.getQuizQuestions().size());
-        quiz.setQuizTimeInMillis(quizTime);
-        quizService.save(quiz);
-        QuizDto dto = Converter.toQuizDto(quiz, false);
+        try {
+            Quiz quiz = quizService.generateQuiz(type, length, answersQuantity);
+            quiz.setUser(userService.getCurrentLoggedUser().get());
+            quiz.setMaxScore(quiz.getQuizQuestions().size());
+            quiz.setQuizTimeInMillis(quizTime);
+            quizService.save(quiz);
+            QuizDto dto = Converter.toQuizDto(quiz, false);
 
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        }catch (InvalidParameterException e) {
+            throw new BadRequestException("x ");
+        }
     }
 
     @GetMapping("/api/quiz2")

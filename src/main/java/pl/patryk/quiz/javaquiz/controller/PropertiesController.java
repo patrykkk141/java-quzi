@@ -24,12 +24,12 @@ public class PropertiesController {
         this.propertiesService = propertiesService;
     }
 
-    @GetMapping("/properties")
+    @GetMapping("/admin/properties")
     public ResponseEntity<QuizProperties> getProperties() {
         return new ResponseEntity<>(quizProperties, HttpStatus.OK);
     }
 
-    @PostMapping("/properties")
+    @PostMapping("/admin/properties")
     public ResponseEntity<QuizProperties> updateProperties(@RequestBody @Valid QuizProperties p) throws Exception {
         quizProperties = p;
         propertiesService.updatePropertiesFile(p);

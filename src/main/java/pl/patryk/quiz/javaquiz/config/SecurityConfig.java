@@ -3,6 +3,7 @@ package pl.patryk.quiz.javaquiz.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,10 +17,15 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@Order(2)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final DataSource dataSource;
+
     @Autowired
-    DataSource dataSource;
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,16 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .antMatcher("/admin/**")
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/sign-up").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .and().httpBasic();
     }
 
     @Bean
@@ -56,4 +60,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
 }
