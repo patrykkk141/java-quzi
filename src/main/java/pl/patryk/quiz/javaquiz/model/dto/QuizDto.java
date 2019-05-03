@@ -9,7 +9,8 @@ public class QuizDto {
     @NotNull
     private long quizId;
     @NotNull
-    private Timestamp generationDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     @NotNull
     private long quizTimeInMillis;
     private int score;
@@ -27,12 +28,20 @@ public class QuizDto {
         this.quizId = quizId;
     }
 
-    public Timestamp getGenerationDate() {
-        return generationDate;
+    public Timestamp getStartDate() {
+        return startDate;
     }
 
-    public void setGenerationDate(Timestamp generationDate) {
-        this.generationDate = generationDate;
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
     }
 
     public long getQuizTimeInMillis() {
@@ -51,14 +60,6 @@ public class QuizDto {
         this.score = score;
     }
 
-    public List<QuizQuestionDto> getQuestionList() {
-        return questionList;
-    }
-
-    public void setQuestionList(List<QuizQuestionDto> questionList) {
-        this.questionList = questionList;
-    }
-
     public int getMaxScore() {
         return maxScore;
     }
@@ -73,5 +74,13 @@ public class QuizDto {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public List<QuizQuestionDto> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<QuizQuestionDto> questionList) {
+        this.questionList = questionList;
     }
 }

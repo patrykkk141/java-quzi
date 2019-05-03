@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.User;
-import pl.patryk.quiz.javaquiz.model.dto.PasswordDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserCreateDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserDto;
 import pl.patryk.quiz.javaquiz.service.UserService;
@@ -15,7 +14,6 @@ import pl.patryk.quiz.javaquiz.service.UserService;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -50,10 +48,10 @@ public class UserController {
 
     @GetMapping("/api/user")
     public ResponseEntity<UserDto> getUserInfo() throws NotFoundException {
-        Optional<User> user = userService.getCurrentLoggedUser();
+        User user = userService.getCurrentLoggedUser();
 
-        if (user.isPresent())
-            return new ResponseEntity<>(Converter.toUserDto(user.get()), HttpStatus.OK);
+        if (user != null)
+            return new ResponseEntity<>(Converter.toUserDto(user), HttpStatus.OK);
         else
             throw new NotFoundException("User not found!");
     }
@@ -74,11 +72,11 @@ public class UserController {
 
     @DeleteMapping("/api/user/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") long id) throws NotFoundException {
-        Optional<User> user = userService.findUserById(id);
-        
-        if (user.isPresent() && user.get().equals(userService.getCurrentLoggedUser().get())) {
-            userService.delete(user.get());
-            return new ResponseEntity<>(Converter.toUserDto(user.get()), HttpStatus.OK);
+        User user = userService.findUserById(id);
+
+        if (user != null && user.equals(userService.getCurrentLoggedUser())) {
+            userService.delete(user);
+            return new ResponseEntity<>(Converter.toUserDto(user), HttpStatus.OK);
         } else
             throw new NotFoundException("User not found");
     }

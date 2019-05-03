@@ -11,7 +11,6 @@ import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.QuizRepository;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +19,13 @@ public class QuizService {
 
     private final QuizRepository quizRepository;
     private final QuizQuestionService quizQuestionService;
+    private final UserService userService;
 
     @Autowired
-    public QuizService(QuizRepository quizRepository, QuizQuestionService quizQuestionService) {
+    public QuizService(QuizRepository quizRepository, QuizQuestionService quizQuestionService, UserService userService) {
         this.quizRepository = quizRepository;
         this.quizQuestionService = quizQuestionService;
+        this.userService = userService;
     }
 
     public Optional<Quiz> findById(long id) {
@@ -43,12 +44,16 @@ public class QuizService {
         return quizRepository.findByUserAndQuizId(user, id);
     }
 
-    public Quiz generateQuiz(QuizType type, int length, int answersQuantity) {
-        Quiz test = new Quiz();
-        test.setGenerationDate(new Timestamp(System.currentTimeMillis()));
-        test.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, test, answersQuantity));
+    public Quiz generateQuiz(QuizType type, int length, int answersQuantity, long quizTime) {
+        Quiz quiz = new Quiz();
+        quiz.setUser(userService.getCurrentLoggedUser());
+        quiz.setStartDate(new Timestamp(System.currentTimeMillis()));
+        quiz.setEndDate(new Timestamp(quiz.getStartDate().getTime() + quizTime));
+        quiz.setQuizTimeInMillis(quizTime);
+        quiz.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, quiz, answersQuantity));
+        quiz.setMaxScore(quiz.getQuizQuestions().size());
 
-        return test;
+        return quiz;
     }
 
     public void setScore(Quiz quiz) {

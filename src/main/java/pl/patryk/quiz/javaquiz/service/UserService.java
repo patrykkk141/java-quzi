@@ -1,14 +1,12 @@
 package pl.patryk.quiz.javaquiz.service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -19,16 +17,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getCurrentLoggedUser() throws NotFoundException {
+    public User getCurrentLoggedUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof UserDetails)
             return userRepository.findByUserName(((UserDetails) principal).getUsername());
         else
-            throw new NotFoundException("User not found");
+            return null;
     }
 
-    public Optional<User> findUserById(long id) {
+    public User findUserById(long id) {
         return userRepository.findById(id);
     }
 

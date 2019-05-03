@@ -4,8 +4,6 @@ import pl.patryk.quiz.javaquiz.enums.QuizType;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,8 +13,10 @@ public class Quiz {
     private long quizId;
     @Enumerated(EnumType.STRING)
     private QuizType quizType;
-    @Column(name="generation_date")
-    private Timestamp generationDate;
+    @Column(name = "start_date")
+    private Timestamp startDate;
+    @Column(name = "end_date")
+    private Timestamp endDate;
     @Column(name = "quiz_time_in_millis")
     private long quizTimeInMillis;
     @Column(name = "max_score")
@@ -47,12 +47,20 @@ public class Quiz {
         this.quizType = quizType;
     }
 
-    public Timestamp getGenerationDate() {
-        return generationDate;
+    public Timestamp getStartDate() {
+        return startDate;
     }
 
-    public void setGenerationDate(Timestamp generationDate) {
-        this.generationDate = generationDate;
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
     }
 
     public long getQuizTimeInMillis() {
