@@ -91,6 +91,7 @@ public class Converter {
     static QuizDto toQuizDto(Quiz quiz, boolean showAnswersType) {
         QuizDto dto = new QuizDto();
         dto.setQuizId(quiz.getQuizId());
+        dto.setQuizType(quiz.getQuizType());
         dto.setQuizTimeInMillis(quiz.getQuizTimeInMillis());
         dto.setScore(quiz.getScore());
         dto.setMaxScore(quiz.getMaxScore());

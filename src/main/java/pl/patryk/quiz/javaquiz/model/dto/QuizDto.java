@@ -1,5 +1,7 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
+import pl.patryk.quiz.javaquiz.enums.QuizType;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -8,6 +10,7 @@ import java.util.List;
 public class QuizDto {
     @NotNull
     private long quizId;
+    private QuizType quizType;
     @NotNull
     private Timestamp startDate;
     private Timestamp endDate;
@@ -26,6 +29,14 @@ public class QuizDto {
 
     public void setQuizId(long quizId) {
         this.quizId = quizId;
+    }
+
+    public QuizType getQuizType() {
+        return quizType;
+    }
+
+    public void setQuizType(QuizType quizType) {
+        this.quizType = quizType;
     }
 
     public Timestamp getStartDate() {

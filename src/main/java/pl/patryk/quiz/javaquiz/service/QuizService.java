@@ -46,6 +46,7 @@ public class QuizService {
 
     public Quiz generateQuiz(QuizType type, int length, int answersQuantity, long quizTime) {
         Quiz quiz = new Quiz();
+        quiz.setQuizType(type);
         quiz.setUser(userService.getCurrentLoggedUser());
         quiz.setStartDate(new Timestamp(System.currentTimeMillis()));
         quiz.setEndDate(new Timestamp(quiz.getStartDate().getTime() + quizTime));
