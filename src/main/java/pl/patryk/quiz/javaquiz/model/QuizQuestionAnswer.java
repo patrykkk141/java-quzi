@@ -14,7 +14,7 @@ public class QuizQuestionAnswer {
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "quiz_question_id")
     private QuizQuestion quizQuestion;
 

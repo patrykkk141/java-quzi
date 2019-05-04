@@ -11,6 +11,7 @@ public class Question {
     private long questionId;
     @Column(nullable = false)
     private String text;
+    private String listing;
     @Column(name = "img_url")
     private String imageUrl;
 
@@ -23,6 +24,14 @@ public class Question {
 
     public void setQuestionId(long questionId) {
         this.questionId = questionId;
+    }
+
+    public String getListing() {
+        return listing;
+    }
+
+    public void setListing(String listing) {
+        this.listing = listing;
     }
 
     public String getText() {

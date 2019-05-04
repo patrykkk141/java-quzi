@@ -7,6 +7,7 @@ public class QuestionDto {
     private long questionId;
     @NotEmpty
     private String text;
+    private String listing;
     private String imageUrl;
     @NotEmpty
     private List<AnswerDto> answers;
@@ -25,6 +26,14 @@ public class QuestionDto {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getListing() {
+        return listing;
+    }
+
+    public void setListing(String listing) {
+        this.listing = listing;
     }
 
     public String getImageUrl() {

@@ -30,6 +30,7 @@ public class Converter {
         QuestionDto dto = new QuestionDto();
         dto.setQuestionId(question.getQuestionId());
         dto.setText(question.getText());
+        dto.setListing(question.getListing());
         dto.setImageUrl(question.getImageUrl());
 
         if (showAnswers)
@@ -62,6 +63,7 @@ public class Converter {
 
         question.setText(dto.getText());
         question.setImageUrl(dto.getImageUrl());
+        question.setListing(dto.getListing());
 
         return question;
     }
