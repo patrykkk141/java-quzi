@@ -12,7 +12,9 @@ INSERT INTO `question` (`question_id`, `img_url`, `text`) VALUES
 (7, NULL, 'FXML'),
 (8, NULL, 'Klasa WebEngine i WebView języka JavaFX pozwala na budowę przeglądarki Web która przetwarza: '),
 (9, NULL, 'Tworzenie obiektu Klasy komponentu JavaFX (...) '),
-(10, NULL, 'Prawidłowa definicja interfejsu Interfacename: ');
+(10, NULL, 'Prawidłowa definicja interfejsu Interfacename: '),
+(11, NULL, 'Która składnia umożliwia przeprowadzenie parsowania pliku języka XML za pomocą interfejsu SAX języka Java: ');
+                                                                 ;
 
 INSERT INTO `answer` (`answer_id`, `answer_type`, `text`, `question_id`) VALUES
   (1, 'POSITIVE', 'frame.add(panel);', 1),
@@ -54,4 +56,8 @@ INSERT INTO `answer` (`answer_id`, `answer_type`, `text`, `question_id`) VALUES
   (38, 'POSITIVE', 'public interface Interfacename extends Otherinterface ', 10),
   (39, 'POSITIVE', 'public interface Interfacename extends Otherinterface1, Otherinterface2 ', 10),
   (40, 'NEGATIVE', 'public interface Interfacename implements Otherinterface ', 10),
-  (41, 'NEGATIVE', 'public interface Interfacename implements Otherinterface1, Otherinterface2 ', 10);
+  (41, 'NEGATIVE', 'public interface Interfacename implements Otherinterface1, Otherinterface2 ', 10),
+  (42, 'POSITIVE', 'parser.parse(source, handler); ', 11),
+  (43, 'NEGATIVE', 'transformer.transform(source, result); ', 11),
+  (44, 'NEGATIVE', 'validator.validate(source); ', 11),
+  (45, 'NEGATIVE', 'parser.parse(source);', 11);

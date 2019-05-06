@@ -33,8 +33,8 @@ public class QuizController {
     public QuizController(QuizService quizService, QuizQuestionAnswerService answerService, UserService userService, QuizProperties quizProperties) {
         this.quizService = quizService;
         this.answerService = answerService;
-        this.userService = userService;
         this.quizProperties = quizProperties;
+        this.userService = userService;
     }
 
     @GetMapping("/api/generate-quiz")

@@ -23,6 +23,16 @@ public class QuizProperties {
     @NotNull
     private int answersQuantity;
 
+    public QuizProperties(@NotNull QuizType quizType, @NotNull @Min(300000) @Max(7200000) long quizTimeInMillis, @NotNull @Min(5) @Max(100) int quizLength, @Min(2) @Max(6) @NotNull int answersQuantity) {
+        this.quizType = quizType;
+        this.quizTimeInMillis = quizTimeInMillis;
+        this.quizLength = quizLength;
+        this.answersQuantity = answersQuantity;
+    }
+
+    public QuizProperties() {
+
+    }
 
     public QuizType getQuizType() {
         return quizType;
