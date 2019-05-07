@@ -12,41 +12,75 @@
 
         <div id="properties-form" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             <div class="container">
-                <form action="#" th:action="@{/quiz-properties}" th:object="${quizProperties}" method="post"
-                      class="p-form">
 
+                <form action="#" th:action="@{/processPropertiesForm}" th:object="${quizProperties}" method="post"
+                      class="p-form">
                     <div class="form-group">
-                        <label class="p-form-label" for="quiz-type">Typ quizu:</label>
-                        <select th:field="*{quizType}" id="quiz-type" class="form-control">
-                            <option th:value="*{quizType.SINGLE}">Test pojedynczego wyboru</option>
-                            <option th:value="*{quizType.MULTIPLE}">Test wieloktorntego wyboru</option>
+                        <label for="quizType" class="p-form-label">Typ quizu:</label>
+                        <select id="quizType" th:field="*{quizType}" class="form-control">
+                            <option  th:value="''" disabled selected >TYP QUIZU</option>
+                            <option th:value="'SINGLE'">Test jednokrotnego wyboru</option>
+                            <option th:value="'MULTIPLE'">Test wielokrotnego wyboru</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label class="p-form-label" for="quiz-time">Czas testu[min]:</label>
-                        <input th:filed="*{quizTimeInMillis}" id="quiz-time" class="form-control" type="text">
+                        <label for="quizTime" class="p-form-label">Czas quizu[min]:</label>
+                        <input type="text" th:field="*{quizTimeInMillis}"  id="quizTime" class="form-control">
                         <p class="text-danger" th:if="${#fields.hasErrors('quizTimeInMillis')}"
                            th:errors="*{quizTimeInMillis}"></p>
                     </div>
                     <div class="form-group">
-                        <label class="p-form-label" for="questions-number">Liczba pytań:</label>
-                        <input th:filed="*{quizLength}" id="questions-number" class="form-control" type="text">
+                        <label for="length" class="p-form-label">Ilość pytań:</label>
+                        <input type="text" th:field="*{quizLength}"  id="length" class="form-control">
                         <p class="text-danger" th:if="${#fields.hasErrors('quizLength')}"
                            th:errors="*{quizLength}"></p>
                     </div>
                     <div class="form-group">
-                        <label class="p-form-label" for="answers-number">Liczba odpowiedzi dla pojedynczego
-                            pytania:</label>
-                        <input th:filed="*{answersQuantity}" id="answers-number" class="form-control" type="text">
+                        <label for="answers" class="p-form-label">Ilość odpowiedzi do pytania:</label>
+                        <input type="text" th:field="*{answersQuantity}"  id="answers" class="form-control">
                         <p class="text-danger" th:if="${#fields.hasErrors('answersQuantity')}"
                            th:errors="*{answersQuantity}"></p>
                     </div>
-                    <div>
-                        <button class="btn btn-primary">Zapisz</button>
+                    <div class="form-group">
+                        <button type="submit">Wyslij</button>
                     </div>
-
                 </form>
+
+                <!-- <form action="#" th:action="@{/processPropertiesForm}" th:object="${quizProperties}" method="post"
+                       class="p-form">
+
+                     <div class="form-group">
+                         <label class="p-form-label" for="quiz-type">Typ quizu:</label>
+                         <select th:field="*{quizType}" id="quiz-type" class="form-control">
+                             <option th:value="*{'SINGLE'}">Test pojedynczego wyboru</option>
+                             <option th:value="*{'MULTIPLE'}">Test wieloktorntego wyboru</option>
+                         </select>
+                     </div>
+
+                     <div class="form-group">
+                         <label class="p-form-label" for="quizTimeInMillis">Czas testu[min]:</label>
+                         <input th:filed="*{quizTimeInMillis}" id="quizTimeInMillis" class="form-control" type="text">
+                         <p class="text-danger" th:if="${#fields.hasErrors('quizTimeInMillis')}"
+                            th:errors="*{quizTimeInMillis}"></p>
+                     </div>
+                     <div class="form-group">
+                         <label class="p-form-label" for="questions-number">Liczba pytań:</label>
+                         <input th:filed="*{quizLength}" id="questions-number" class="form-control" type="text">
+                         <p class="text-danger" th:if="${#fields.hasErrors('quizLength')}"
+                            th:errors="*{quizLength}"></p>
+                     </div>
+                     <div class="form-group">
+                         <label class="p-form-label" for="answers-number">Liczba odpowiedzi dla pojedynczego
+                             pytania:</label>
+                         <input th:filed="*{answersQuantity}" id="answers-number" class="form-control" type="text">
+                         <p class="text-danger" th:if="${#fields.hasErrors('answersQuantity')}"
+                            th:errors="*{answersQuantity}"></p>
+                     </div>
+                     <div>
+                         <button class="btn btn-primary" type="submit">Zapisz</button>
+                     </div>
+                 </form>-->
+
             </div>
         </div>
     </div>

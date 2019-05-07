@@ -30,10 +30,10 @@ public class QuizController {
     private QuizProperties quizProperties;
 
     @Autowired
-    public QuizController(QuizService quizService, QuizQuestionAnswerService answerService, UserService userService, QuizProperties quizProperties) {
+    public QuizController(QuizService quizService, QuizQuestionAnswerService answerService, UserService userService) {
         this.quizService = quizService;
         this.answerService = answerService;
-        this.quizProperties = quizProperties;
+        this.quizProperties = QuizProperties.getInstance();
         this.userService = userService;
     }
 
