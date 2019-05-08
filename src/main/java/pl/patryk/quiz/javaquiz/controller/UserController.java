@@ -81,4 +81,10 @@ public class UserController {
             throw new NotFoundException("User not found");
     }
 
+    @GetMapping("/api/login")
+    public ResponseEntity<String> lgoin() {
+        return new ResponseEntity<>("Login success", HttpStatus.OK);
+
+    }
+
 }

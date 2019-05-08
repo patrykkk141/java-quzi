@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@Order(2)
+
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
@@ -38,15 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .antMatcher("/admin/**")
                 .authorizeRequests()
                 .anyRequest()
-                .permitAll()
+                .authenticated()
+                .antMatchers("/api/**")
+                .hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/**")
+                .hasRole("ADMIN")
                 .and()
-                .httpBasic().and().antMatcher("/test/**").authorizeRequests().anyRequest().permitAll();
+                .httpBasic();
     }
 
     @Bean
