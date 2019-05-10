@@ -11,7 +11,7 @@ public class Question {
     private long questionId;
     @Column(nullable = false)
     private String text;
-    private String listing;
+    private String code;
     @Column(name = "img_url")
     private String imageUrl;
 
@@ -26,12 +26,12 @@ public class Question {
         this.questionId = questionId;
     }
 
-    public String getListing() {
-        return listing;
+    public String getCode() {
+        return code;
     }
 
-    public void setListing(String listing) {
-        this.listing = listing;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getText() {
@@ -49,6 +49,7 @@ public class Question {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 
     public List<Answer> getAnswers() {
         return answers;

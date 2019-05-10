@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.patryk.quiz.javaquiz.exception.FileException;
-import pl.patryk.quiz.javaquiz.service.FileService;
+import pl.patryk.quiz.javaquiz.service.ImageService;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,17 +17,17 @@ import java.nio.file.Files;
 @RestController
 public class ImagesController {
 
-    private final FileService fileService;
+    private final ImageService imageService;
 
     @Autowired
-    public ImagesController(FileService fileService) {
-        this.fileService = fileService;
+    public ImagesController(ImageService imageService) {
+        this.imageService = imageService;
     }
 
     @PostMapping("/api/image")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
         try {
-            fileService.saveImage(file);
+            imageService.saveImage(file);
             return new ResponseEntity<>("Image saved", HttpStatus.CREATED);
         } catch (IOException | FileException e) {
             e.printStackTrace();
@@ -36,8 +36,8 @@ public class ImagesController {
     }
 
     @GetMapping("/api/image/{imageName}")
-    public ResponseEntity<?> downloadImage(@PathVariable("imageName") String imgName) throws IOException {
-        File file = fileService.getFileByName(imgName);
+    public ResponseEntity<?> downloadImage(@PathVariable("imageName") String imgName) throws Exception {
+        File file = imageService.getFileByName(imgName);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf(Files.probeContentType(file.toPath())));
         System.out.println("Media type: " + headers.getContentType());

@@ -7,7 +7,7 @@ public class QuestionDto {
     private long questionId;
     @NotEmpty
     private String text;
-    private String listing;
+    private String code;
     private String imageUrl;
     @NotEmpty
     private List<AnswerDto> answers;
@@ -28,12 +28,12 @@ public class QuestionDto {
         this.text = text;
     }
 
-    public String getListing() {
-        return listing;
+    public String getCode() {
+        return code;
     }
 
-    public void setListing(String listing) {
-        this.listing = listing;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getImageUrl() {

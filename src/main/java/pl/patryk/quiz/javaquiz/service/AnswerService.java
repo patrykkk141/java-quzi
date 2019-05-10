@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.patryk.quiz.javaquiz.enums.AnswerType;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
+import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.repository.AnswerRepository;
 
 import java.util.Collections;
@@ -38,6 +39,21 @@ public class AnswerService {
         List<Answer> answers = findAllByQuestionAndAnswerType(question, type);
         Collections.shuffle(answers);
         return answers;
+    }
+
+    public List<Answer> setNegativeAnswers(List<Answer> l) {
+        for (Answer a : l) {
+            if (a.getAnswerType() == null)
+                a.setAnswerType(AnswerType.NEGATIVE);
+        }
+        return l;
+    }
+
+    public List<Answer> setQuestion(List<Answer> l, Question q) {
+        for (Answer a : l) {
+            a.setQuestion(q);
+        }
+        return l;
     }
 
 }

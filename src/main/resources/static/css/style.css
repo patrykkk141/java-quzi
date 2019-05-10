@@ -22,3 +22,8 @@
 .p-form-label {
     font-size: 18px;
 }
+
+.p-test{
+    color:red;
+    background-color: pink;
+}

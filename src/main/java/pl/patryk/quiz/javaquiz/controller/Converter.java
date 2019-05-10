@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Converter {
 
-    static UserDto toUserDto(User user) {
+    public static UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
 
         dto.setUserName(user.getUserName());
@@ -17,7 +17,7 @@ public class Converter {
         return dto;
     }
 
-    static User fromUserCreateDto(UserCreateDto dto) {
+    public static User fromUserCreateDto(UserCreateDto dto) {
         User user = new User();
 
         user.setEmail(dto.getEmail());
@@ -26,11 +26,11 @@ public class Converter {
         return user;
     }
 
-    static QuestionDto toQuestionDto(Question question, boolean showAnswers) {
+    public static QuestionDto toQuestionDto(Question question, boolean showAnswers) {
         QuestionDto dto = new QuestionDto();
         dto.setQuestionId(question.getQuestionId());
         dto.setText(question.getText());
-        dto.setListing(question.getListing());
+        dto.setCode(question.getCode());
         dto.setImageUrl(question.getImageUrl());
 
         if (showAnswers)
@@ -40,7 +40,7 @@ public class Converter {
     }
 
 
-    static AnswerDto toAnswerDto(Answer answer) {
+    public static AnswerDto toAnswerDto(Answer answer) {
         AnswerDto dto = new AnswerDto();
         dto.setAnswerId(answer.getAnswerId());
         dto.setText(answer.getText());
@@ -49,7 +49,7 @@ public class Converter {
         return dto;
     }
 
-    static Answer fromAnswerDto(AnswerDto dto) {
+    public static Answer fromAnswerDto(AnswerDto dto) {
         Answer answer = new Answer();
 
         answer.setText(dto.getText());
@@ -58,17 +58,17 @@ public class Converter {
         return answer;
     }
 
-    static Question fromQuestionDto(QuestionDto dto) {
+    public static Question fromQuestionDto(QuestionDto dto) {
         Question question = new Question();
 
         question.setText(dto.getText());
         question.setImageUrl(dto.getImageUrl());
-        question.setListing(dto.getListing());
+        question.setCode(dto.getCode());
 
         return question;
     }
 
-    static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
+    public static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
         QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
         dto.setAnswerId(answer.getQuizQuestionAnswerId());
         dto.setMarked(answer.getMarked());
@@ -78,17 +78,18 @@ public class Converter {
         return dto;
     }
 
-    static QuizQuestionDto toQuizQuestionDto(QuizQuestion question, boolean showAnswersType) {
+    public static QuizQuestionDto toQuizQuestionDto(QuizQuestion question, boolean showAnswersType) {
         QuizQuestionDto dto = new QuizQuestionDto();
         dto.setQuestionId(question.getQuizQuestionId());
         dto.setText(question.getQuestion().getText());
         dto.setImageUrl(question.getQuestion().getImageUrl());
+        dto.setCode(question.getQuestion().getCode());
         dto.setAnswerList(question.getQuizQuestionAnswers().stream().map(x -> Converter.toQuizQuestionAnswerDto(x, showAnswersType)).collect(Collectors.toList()));
 
         return dto;
     }
 
-    static QuizDto toQuizDto(Quiz quiz, boolean showAnswersType) {
+    public static QuizDto toQuizDto(Quiz quiz, boolean showAnswersType) {
         QuizDto dto = new QuizDto();
         dto.setQuizId(quiz.getQuizId());
         dto.setQuizType(quiz.getQuizType());
@@ -102,7 +103,7 @@ public class Converter {
         return dto;
     }
 
-    static public QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
+     static public QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
         QuizQuestion quizQuestion = new QuizQuestion();
 
         quizQuestion.setQuestion(question);
@@ -111,7 +112,7 @@ public class Converter {
         return quizQuestion;
     }
 
-    static public QuizQuestionAnswer toQuizQuestionAnswer(Answer answer, QuizQuestion question) {
+     static public QuizQuestionAnswer toQuizQuestionAnswer(Answer answer, QuizQuestion question) {
         QuizQuestionAnswer quizQuestionAnswer = new QuizQuestionAnswer();
         quizQuestionAnswer.setAnswer(answer);
         quizQuestionAnswer.setQuizQuestion(question);

@@ -10,7 +10,7 @@ import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
 import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
-import pl.patryk.quiz.javaquiz.service.FileService;
+import pl.patryk.quiz.javaquiz.service.ImageService;
 import pl.patryk.quiz.javaquiz.service.QuestionService;
 
 import javax.validation.Valid;
@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class QuestionController {
 
     private final QuestionService questionService;
-    private final FileService fileService;
+    private final ImageService imageService;
 
     @Autowired
-    public QuestionController(QuestionService questionService, FileService fileService) {
+    public QuestionController(QuestionService questionService, ImageService imageService) {
         this.questionService = questionService;
-        this.fileService = fileService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/api/question/all")
@@ -91,7 +91,7 @@ public class QuestionController {
         if (q.isPresent()) {
             Question question = q.get();
             try {
-                question.setImageUrl(fileService.saveImage(file));
+                question.setImageUrl(imageService.saveImage(file));
                 return new ResponseEntity<>(Converter.toQuestionDto(question, true), HttpStatus.OK);
             } catch (Exception e) {
                 throw new BadRequestException("File could not be saved!");

@@ -8,6 +8,7 @@ import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.QuizQuestion;
 import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
+import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuizQuestionAnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuizQuestionDto;
 
@@ -48,4 +49,5 @@ public class QuizQuestionAnswerService {
             }
         }
     }
+
 }

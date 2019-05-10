@@ -7,6 +7,7 @@ public class QuizQuestionDto {
     private long questionId;
     private String text;
     private String imageUrl;
+    private String code;
     private List<QuizQuestionAnswerDto> answerList;
 
     public long getQuestionId() {
@@ -31,6 +32,14 @@ public class QuizQuestionDto {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public List<QuizQuestionAnswerDto> getAnswerList() {
