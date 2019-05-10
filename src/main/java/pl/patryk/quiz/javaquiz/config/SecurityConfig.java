@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -29,7 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
@@ -49,9 +49,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
+                .antMatchers("/index", "/login", "/js/**", "/css/**")
+                .permitAll()
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/index",true)
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll();
+    }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**");
     }
 
     @Bean

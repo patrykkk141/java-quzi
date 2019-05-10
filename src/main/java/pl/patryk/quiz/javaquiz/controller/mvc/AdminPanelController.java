@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.patryk.quiz.javaquiz.controller.Converter;
 import pl.patryk.quiz.javaquiz.exception.FileException;
 import pl.patryk.quiz.javaquiz.model.Answer;
@@ -96,6 +93,14 @@ public class AdminPanelController {
             return "redirect:/questions";
         }
         return "edit";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
+        if(error!=null) {
+            model.addAttribute("errorMessage", "Nieprawny login lub haslo");
+        }
+        return "login";
     }
 
 }
