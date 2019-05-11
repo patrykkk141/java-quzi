@@ -19,8 +19,8 @@ public class PropertiesController {
     private final QuizPropertiesService propertiesService;
 
     @Autowired
-    public PropertiesController(QuizPropertiesService propertiesService) {
-        this.quizProperties = QuizProperties.getInstance();
+    public PropertiesController(QuizProperties quizProperties, QuizPropertiesService propertiesService) {
+        this.quizProperties = quizProperties;
         this.propertiesService = propertiesService;
     }
 
