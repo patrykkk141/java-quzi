@@ -1,11 +1,13 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class QuizQuestionDto {
     private long questionId;
     private String text;
+    private Timestamp creationDate;
     private String imageUrl;
     private String code;
     private List<QuizQuestionAnswerDto> answerList;
@@ -24,6 +26,14 @@ public class QuizQuestionDto {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getImageUrl() {

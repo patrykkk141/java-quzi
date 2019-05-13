@@ -30,6 +30,7 @@ public class Converter {
         QuestionDto dto = new QuestionDto();
         dto.setQuestionId(question.getQuestionId());
         dto.setText(question.getText());
+        dto.setCreationDate(question.getCreationDate());
         dto.setCode(question.getCode());
         dto.setImageUrl(question.getImageUrl());
 
@@ -39,6 +40,36 @@ public class Converter {
         return dto;
     }
 
+    public static Question fromQuestionDto(QuestionDto dto) {
+        Question question = new Question();
+
+        question.setText(dto.getText());
+        question.setImageUrl(dto.getImageUrl());
+        question.setCode(dto.getCode());
+
+        return question;
+    }
+
+    public static QuizQuestionDto toQuizQuestionDto(QuizQuestion question, boolean showAnswersType) {
+        QuizQuestionDto dto = new QuizQuestionDto();
+        dto.setQuestionId(question.getQuizQuestionId());
+        dto.setText(question.getQuestion().getText());
+        dto.setCreationDate(question.getQuestion().getCreationDate());
+        dto.setImageUrl(question.getQuestion().getImageUrl());
+        dto.setCode(question.getQuestion().getCode());
+        dto.setAnswerList(question.getQuizQuestionAnswers().stream().map(x -> Converter.toQuizQuestionAnswerDto(x, showAnswersType)).collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    static public QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
+        QuizQuestion quizQuestion = new QuizQuestion();
+
+        quizQuestion.setQuestion(question);
+        quizQuestion.setQuiz(quiz);
+
+        return quizQuestion;
+    }
 
     public static AnswerDto toAnswerDto(Answer answer) {
         AnswerDto dto = new AnswerDto();
@@ -58,33 +89,12 @@ public class Converter {
         return answer;
     }
 
-    public static Question fromQuestionDto(QuestionDto dto) {
-        Question question = new Question();
-
-        question.setText(dto.getText());
-        question.setImageUrl(dto.getImageUrl());
-        question.setCode(dto.getCode());
-
-        return question;
-    }
-
     public static QuizQuestionAnswerDto toQuizQuestionAnswerDto(QuizQuestionAnswer answer, boolean showAnswerType) {
         QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
         dto.setAnswerId(answer.getQuizQuestionAnswerId());
         dto.setMarked(answer.getMarked());
         dto.setText(answer.getAnswer().getText());
         if (showAnswerType) dto.setAnswerType(answer.getAnswer().getAnswerType());
-
-        return dto;
-    }
-
-    public static QuizQuestionDto toQuizQuestionDto(QuizQuestion question, boolean showAnswersType) {
-        QuizQuestionDto dto = new QuizQuestionDto();
-        dto.setQuestionId(question.getQuizQuestionId());
-        dto.setText(question.getQuestion().getText());
-        dto.setImageUrl(question.getQuestion().getImageUrl());
-        dto.setCode(question.getQuestion().getCode());
-        dto.setAnswerList(question.getQuizQuestionAnswers().stream().map(x -> Converter.toQuizQuestionAnswerDto(x, showAnswersType)).collect(Collectors.toList()));
 
         return dto;
     }
@@ -103,16 +113,7 @@ public class Converter {
         return dto;
     }
 
-     static public QuizQuestion toQuizQuestion(Question question, Quiz quiz) {
-        QuizQuestion quizQuestion = new QuizQuestion();
-
-        quizQuestion.setQuestion(question);
-        quizQuestion.setQuiz(quiz);
-
-        return quizQuestion;
-    }
-
-     static public QuizQuestionAnswer toQuizQuestionAnswer(Answer answer, QuizQuestion question) {
+    static public QuizQuestionAnswer toQuizQuestionAnswer(Answer answer, QuizQuestion question) {
         QuizQuestionAnswer quizQuestionAnswer = new QuizQuestionAnswer();
         quizQuestionAnswer.setAnswer(answer);
         quizQuestionAnswer.setQuizQuestion(question);
