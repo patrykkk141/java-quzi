@@ -120,4 +120,23 @@ public class Converter {
 
         return quizQuestionAnswer;
     }
+
+    public static QuizPropertiesDto toQuizPropertiesDto(QuizProperties properties) {
+        QuizPropertiesDto dto = new QuizPropertiesDto();
+        dto.setQuizType(properties.getQuizType());
+        dto.setAnswersQuantity(properties.getAnswersQuantity());
+        dto.setQuizLength(properties.getQuizLength());
+        dto.setQuizTypeInMinutes((long) (properties.getQuizTimeInMillis() * 1.6666667 * Math.pow(10, -5)));
+        return dto;
+    }
+
+    public static QuizProperties fromQuizPropertiesDto(QuizPropertiesDto dto) {
+        QuizProperties properties = new QuizProperties();
+
+        properties.setQuizType(dto.getQuizType());
+        properties.setQuizLength(dto.getQuizLength());
+        properties.setAnswersQuantity(dto.getAnswersQuantity());
+        properties.setQuizTimeInMillis(dto.getQuizTypeInMinutes() * 60000);
+        return properties;
+    }
 }

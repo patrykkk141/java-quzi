@@ -12,19 +12,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class QuizProperties implements Serializable {
-    @NotNull
     private QuizType quizType;
-    @NotNull
-    @Min(300000)
-    @Max(7200000)
     private long quizTimeInMillis;
-    @NotNull
-    @Min(5)
-    @Max(100)
     private int quizLength;
-    @Min(2)
-    @Max(6)
-    @NotNull
     private int answersQuantity;
 
     private static QuizProperties instance;
@@ -46,7 +36,7 @@ public class QuizProperties implements Serializable {
     }
 
     public static void updateInstance(QuizProperties p) {
-        if (p != null) {
+        if (p != null && instance != null) {
             instance.setAnswersQuantity(p.getAnswersQuantity());
             instance.setQuizLength(p.getQuizLength());
             instance.setQuizTimeInMillis(p.getQuizTimeInMillis());

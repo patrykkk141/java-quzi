@@ -9,14 +9,17 @@ import pl.patryk.quiz.javaquiz.controller.Converter;
 import pl.patryk.quiz.javaquiz.exception.FileException;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
+import pl.patryk.quiz.javaquiz.model.QuizProperties;
 import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.ImageDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
+import pl.patryk.quiz.javaquiz.model.dto.QuizPropertiesDto;
 import pl.patryk.quiz.javaquiz.service.AnswerService;
 import pl.patryk.quiz.javaquiz.service.ImageService;
 import pl.patryk.quiz.javaquiz.service.QuestionService;
+import pl.patryk.quiz.javaquiz.service.QuizPropertiesService;
 
-import java.io.File;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +32,26 @@ public class AdminPanelController {
     private final AnswerService answerService;
     private final QuestionService questionService;
     private final ImageService imageService;
+    private final QuizPropertiesService propertiesService;
+    private QuizProperties quizProperties;
 
     @Autowired
-    public AdminPanelController(AnswerService answerService, QuestionService questionService, ImageService imageService) {
+    public AdminPanelController(AnswerService answerService, QuestionService questionService, ImageService imageService, QuizPropertiesService propertiesService) {
         this.answerService = answerService;
         this.questionService = questionService;
         this.imageService = imageService;
+        this.propertiesService = propertiesService;
+        quizProperties = QuizProperties.getInstance();
     }
 
-    @GetMapping("/index")
-    public String getIndex() {
+    @GetMapping("/admin/index")
+    public String getIndex(Model model) {
+        List<Question> question = questionService.findAll().subList(0, 3);
+        model.addAttribute("latestQuestions", question);
         return "index";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/admin/question/new")
     public String getQuestionForm(Model model) {
         QuestionDto q = new QuestionDto();
         List<AnswerDto> a = new ArrayList<>();
@@ -55,7 +64,7 @@ public class AdminPanelController {
         return "new";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/admin/question/new")
     public String processQuestionForm(@ModelAttribute("question") QuestionDto dto, @ModelAttribute("file") ImageDto image, BindingResult result) {
         Question q = Converter.fromQuestionDto(dto);
         List<Answer> a = dto.getAnswers().stream().filter(x -> x.getText().length() > 0).map(Converter::fromAnswerDto).collect(Collectors.toList());
@@ -75,7 +84,7 @@ public class AdminPanelController {
         return "index";
     }
 
-    @GetMapping("/questions")
+    @GetMapping("/admin/questions")
     public String getQuestions(Model model) {
         List<QuestionDto> q = questionService.findAll().stream().map(x -> Converter.toQuestionDto(x, true)).collect(Collectors.toList());
         model.addAttribute("questions", q);
@@ -83,10 +92,11 @@ public class AdminPanelController {
         return "question";
     }
 
-    @GetMapping("/question/edit/{id}")
+    @GetMapping("/admin/question/edit/{id}")
     public String getEditForm(@PathVariable("id") long id, Model model) {
         Optional<Question> q = questionService.findById(id);
         if (q.isPresent()) {
+            q.get().setAnswers(answerService.addEmptyAnswers(q.get().getAnswers()));
             model.addAttribute("question", Converter.toQuestionDto(q.get(), true));
             model.addAttribute("file", new ImageDto());
         } else {
@@ -95,9 +105,24 @@ public class AdminPanelController {
         return "edit";
     }
 
+
+    @GetMapping("/admin/properties")
+    public String getQuizPropertiesForm(Model model) {
+        model.addAttribute("quizProperties", Converter.toQuizPropertiesDto(quizProperties));
+        return "quiz-properties";
+    }
+
+    @PostMapping("/admin/properties")
+    public String updateQuizProperties(@ModelAttribute("quizProperties") @Valid QuizPropertiesDto dto, BindingResult result) throws Exception {
+        if (result.hasErrors()) return "quiz-properties";
+        QuizProperties.updateInstance(Converter.fromQuizPropertiesDto(dto));
+        propertiesService.updatePropertiesFile(quizProperties);
+        return "redirect:/home";
+    }
+
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
-        if(error!=null) {
+        if (error != null) {
             model.addAttribute("errorMessage", "Nieprawny login lub haslo");
         }
         return "login";
