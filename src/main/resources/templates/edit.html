@@ -67,6 +67,9 @@
                             <label for="file">Zdjęcie do pytania</label><br>
                             <input type="file" placeholder="Obrazek..." id="file" th:field="${file.file}">
                         </div>
+                        <th:block th:if="*{imageUrl !=null}">
+                            <input type="hidden" th:field="*{imageUrl}">
+                        </th:block>
                         <hr>
                         <h4 class="text-muted">Odpowiedzi</h4>
 
