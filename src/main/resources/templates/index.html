@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="top">
     <a class="navbar-brand" href="#"><i class="fas fa-stream text-white"></i> Quiz</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -21,19 +23,15 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-outline-secondary" href="login.html">Log in <i class="fas fa-sign-in-alt"></i></a>
+                <a class="btn btn-outline-secondary" href="login.html" th:href="@{/login}">Log in <i class="fas fa-sign-in-alt"></i></a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="jumbotron">
     <h1 class="display-3">Welcome! Quiz is here.</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <p class="lead">Wypełnij quiz i sprawdź jak dobrze znasz język Java!</p>
     <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
 </div>
 
 <div class="container-fluid">
@@ -46,30 +44,14 @@
                     </div>
                     <p class="mb-1">Ostatnio dodane pytania do bazy danych</p>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Czy java jest fajna?</h5>
+                <th:block th:each="question : ${latestQuestions}">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="mb-1" th:text="${question.text}"></p>
+                        </div>
                         <small class="text-muted">3 days ago</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Czy proko jest fajny?</h5>
-                        <small class="text-muted">4 days ago</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Bo jak nie my to kto?</h5>
-                        <small class="text-muted">4 days ago</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
+                    </a>
+                </th:block>
             </div>
         </div>
         <div class="col-md-8">
@@ -78,13 +60,23 @@
 
             <h4>Android</h4>
             <p class="text-muted">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor metus quis erat lacinia venenatis. Integer ut eros ut nibh mollis tincidunt. Vivamus a ipsum eu est dignissim efficitur quis non nulla. Donec accumsan, magna nec molestie fringilla, enim dolor suscipit magna, id lacinia metus eros ut diam. Etiam id neque et arcu consequat dapibus ut eu est. Quisque pellentesque augue eu erat dapibus, vitae fringilla turpis eleifend. Sed vitae diam et ligula dignissim feugiat. Aenean ac elit est. Suspendisse venenatis ex justo. Praesent suscipit vehicula iaculis. Vestibulum at tortor auctor, finibus risus a, rutrum lorper nisi id  vel.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor metus quis erat lacinia
+                venenatis. Integer ut eros ut nibh mollis tincidunt. Vivamus a ipsum eu est dignissim efficitur quis non
+                nulla. Donec accumsan, magna nec molestie fringilla, enim dolor suscipit magna, id lacinia metus eros ut
+                diam. Etiam id neque et arcu consequat dapibus ut eu est. Quisque pellentesque augue eu erat dapibus,
+                vitae fringilla turpis eleifend. Sed vitae diam et ligula dignissim feugiat. Aenean ac elit est.
+                Suspendisse venenatis ex justo. Praesent suscipit vehicula iaculis. Vestibulum at tortor auctor, finibus
+                risus a, rutrum lorper nisi id vel.
             </p>
-            <a href=""><img src="img/gplay.svg" class="img-fluid" style="height: 40px;" alt="google play"></a><br><br>
+            <a href=""><img src="../static/img/gplay.svg" class="img-fluid" style="height: 40px;" alt="google play"></a><br><br>
 
             <h4>Desktop</h4>
             <p class="text-muted">
-                Maecenas risus sapien, molestie a vulputate a, tempor et nunc. Praesent consectetur, sapien sed viverra molestie, nulla leo porttitor erat, eget interdum erat purus eu risus. Vivamus sed augue a dolor egestas ultricies a id metus. Nulla eu semper ipsum, id fermentum mi. Pellentesque nec eros metus. Duis molestie ipsum ipsum, condimentum scelerisque nunc tempor non. Sed bibendum, ipsum id placerat laoreet, odio dui accumsan dui, et porttitor purus tortor
+                Maecenas risus sapien, molestie a vulputate a, tempor et nunc. Praesent consectetur, sapien sed viverra
+                molestie, nulla leo porttitor erat, eget interdum erat purus eu risus. Vivamus sed augue a dolor egestas
+                ultricies a id metus. Nulla eu semper ipsum, id fermentum mi. Pellentesque nec eros metus. Duis molestie
+                ipsum ipsum, condimentum scelerisque nunc tempor non. Sed bibendum, ipsum id placerat laoreet, odio dui
+                accumsan dui, et porttitor purus tortor
             </p>
             <a href="" class="btn btn-outline-primary btn-lg">Download</a>
         </div>

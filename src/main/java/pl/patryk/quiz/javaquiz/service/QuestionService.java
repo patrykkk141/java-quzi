@@ -2,6 +2,7 @@ package pl.patryk.quiz.javaquiz.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
 import pl.patryk.quiz.javaquiz.repository.QuestionRepository;
 
@@ -33,6 +34,10 @@ public class QuestionService {
 
     public void delete(Question question) {
         questionRepository.delete(question);
+    }
+
+    public void deleteById(long id) {
+        questionRepository.deleteById(id);
     }
 
     public List<Question> getQuestionsByQuantityOfPositiveAndNegativeAnswers(Long positiveAnswers, Long negativeAnswers) {

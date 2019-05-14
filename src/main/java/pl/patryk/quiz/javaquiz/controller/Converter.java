@@ -43,6 +43,7 @@ public class Converter {
     public static Question fromQuestionDto(QuestionDto dto) {
         Question question = new Question();
 
+        question.setQuestionId(dto.getQuestionId());
         question.setText(dto.getText());
         question.setImageUrl(dto.getImageUrl());
         question.setCode(dto.getCode());
@@ -83,6 +84,7 @@ public class Converter {
     public static Answer fromAnswerDto(AnswerDto dto) {
         Answer answer = new Answer();
 
+        answer.setAnswerId(dto.getAnswerId());
         answer.setText(dto.getText());
         answer.setAnswerType(dto.getAnswerType());
 

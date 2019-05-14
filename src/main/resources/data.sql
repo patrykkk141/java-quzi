@@ -2,18 +2,18 @@ INSERT INTO `user`(user_id, `password`, role, username, email, registration_date
 VALUES (1, '{bcrypt}$2a$04$895j3QqSIaZU1dt62X4ntepX6E8XFiGfshM6ghGUG3WXVM/gaQkmO', 'ADMIN', 'patryk', 'patryk@example.com', '2019-04-09 18:04:59', true),
        (2, 'abc', 'USER', 'marcin', 'marcin@example.com', '2015-03-11 11:13:51', true);
 
-INSERT INTO `question` (`question_id`, `img_url`, `text`, `code`) VALUES
-(1, NULL, 'Która sk?adnia dodawania obiektu panelu (JPanel panel = new JPanel();) do kontenera okna (JFrame frame = new JFrame();) w j?zyku Java jest poprawna', null),
-(2, NULL, 'W j?zyku Java rozk?ad komponentów (przycisków) w oknie aplikacji jak na rysunku ni?ej realizuje klasa (równa siatka przycisków 3x2 tej samej wielko?ci)', null),
-(3, NULL, 'Interfejsy funkcyjne:  ', null),
-(4, NULL, 'Parser strumieniowy StAX pozwala na:', null),
-(5, NULL, 'Który kod jest poprawny:', null),
-(6, NULL, 'JavaFX: ', null),
-(7, NULL, 'FXML', null),
-(8, NULL, 'Klasa WebEngine i WebView języka JavaFX pozwala na budowę przeglądarki Web która przetwarza: ', null),
-(9, NULL, 'Tworzenie obiektu Klasy komponentu JavaFX (...) ', null),
-(10, NULL, 'Prawidłowa definicja interfejsu Interfacename: ', null),
-(11, NULL, 'Która składnia umożliwia przeprowadzenie parsowania pliku języka XML za pomocą interfejsu SAX języka Java: ', null);
+INSERT INTO `question` (`question_id`, `img_url`, `text`, `code`, `creation_date`) VALUES
+(1, NULL, 'Która składnia dodawania obiektu panelu (JPanel panel = new JPanel();) do kontenera okna (JFrame frame = new JFrame();) w języku Java jest poprawna', null, '2015-03-11 11:13:51'),
+(2, NULL, 'W języku Java rozkład komponentów (przycisków) w oknie aplikacji jak na rysunku niżej realizuje klasa (równa siatka przycisków 3x2 tej samej wielkości)', null, '2015-03-11 11:13:51'),
+(3, NULL, 'Interfejsy funkcyjne:  ', null, '2015-03-11 11:13:51'),
+(4, NULL, 'Parser strumieniowy StAX pozwala na:', null, '2015-03-11 11:13:51'),
+(5, NULL, 'Który kod jest poprawny:', null, '2015-03-11 11:13:51'),
+(6, NULL, 'JavaFX: ', null, '2015-03-11 11:13:51'),
+(7, NULL, 'FXML', null, '2015-03-11 11:13:51'),
+(8, NULL, 'Klasa WebEngine i WebView języka JavaFX pozwala na budowę przeglądarki Web która przetwarza: ', null, '2015-03-11 11:13:51'),
+(9, NULL, 'Tworzenie obiektu Klasy komponentu JavaFX (...) ', null, '2015-03-11 11:13:51'),
+(10, NULL, 'Prawidłowa definicja interfejsu Interfacename: ', null, '2015-03-11 11:13:51'),
+(11, NULL, 'Która składnia umożliwia przeprowadzenie parsowania pliku języka XML za pomocą interfejsu SAX języka Java: ', null, '2015-03-11 11:13:51');
                                                                  ;
 
 INSERT INTO `answer` (`answer_id`, `answer_type`, `text`, `question_id`) VALUES

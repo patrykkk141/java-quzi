@@ -56,4 +56,12 @@ public class AnswerService {
         return l;
     }
 
+    public List<Answer> addEmptyAnswers(List<Answer> answers) {
+        if (answers.size() < 6) {
+            for (int i = answers.size(); i < 6; i++) {
+                answers.add(new Answer());
+            }
+        }
+        return answers;
+    }
 }

@@ -1,11 +1,10 @@
-package pl.patryk.quiz.javaquiz.controller.mvc;
+package pl.patryk.quiz.javaquiz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.patryk.quiz.javaquiz.controller.Converter;
 import pl.patryk.quiz.javaquiz.exception.FileException;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
@@ -71,7 +70,7 @@ public class AdminPanelController {
         q.setAnswers(answerService.setNegativeAnswers(a));
         q.setAnswers(answerService.setQuestion(a, q));
 
-        if (image.getFile() != null) {
+        if (image.getFile().getOriginalFilename() != null && image.getFile().getOriginalFilename().length()>0) {
             try {
                 q.setImageUrl(imageService.saveImage(image.getFile()));
             } catch (IOException | FileException e) {
@@ -105,6 +104,26 @@ public class AdminPanelController {
         return "edit";
     }
 
+    @PostMapping("/admin/question/edit/{id}")
+    public String updateQuestion(@PathVariable("id") long id, @ModelAttribute @Valid QuestionDto dto, @ModelAttribute ImageDto file, BindingResult result) {
+        Optional<Question> q = questionService.findById(id);
+        if (q.isPresent()) {
+            processQuestionForm(dto, file, result);
+        }
+        return "redirect:/questions";
+    }
+
+    @GetMapping("/admin/question/delete/{id}")
+    public String deleteQuestion(@PathVariable("id") long id) {
+        Optional<Question> q = questionService.findById(id);
+        if (q.isPresent()) {
+            questionService.deleteById(id);
+            return "questions";
+        } else {
+            // TODO: 13.05.2019 ERROR HANDLING
+            return "redirect:/questions";
+        }
+    }
 
     @GetMapping("/admin/properties")
     public String getQuizPropertiesForm(Model model) {

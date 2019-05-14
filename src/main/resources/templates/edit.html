@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.html" th:href="@{/admin/questions}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="btn btn-outline-secondary" href="/../login.html" th:href="@{/logout}">Log out <i
@@ -41,11 +41,12 @@
                 </div>
                 <div class="col-md-12 pt-3">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/../question.html" th:href="@{/question}">Panel</a></li>
+                        <li class="breadcrumb-item"><a href="/../question.html" th:href="@{/admin/question}">Panel</a></li>
                         <li class="breadcrumb-item active">Dodawanie pytania</li>
                     </ol>
-                    <form action="#" th:action="@{/new}" th:object="${question}" method="post"
+                    <form action="#" th:object="${question}" th:action="@{'/admin/question/edit/' + ${question.questionId}}" method="post"
                           enctype="multipart/form-data">
+                        <input type="hidden" th:field="*{questionId}">
                         <div class="form-group">
                             <label for="question">Treść</label>
                             <input class="form-control" type="text" th:field="*{text}" placeholder="Treść pytania..."
@@ -70,6 +71,7 @@
                         <h4 class="text-muted">Odpowiedzi</h4>
 
                         <div class="row" th:each="answer, ind : *{answers}">
+                            <input type="hidden" th:field="*{answers[__${ind.index}__].answerId}">
                             <div class="col-md-1"><h2 th:text="${ind.count}"></h2></div>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="odp1"
@@ -88,8 +90,7 @@
 
 
                         <div class="form-group pt-3">
-                            <button type="submit" class="btn btn-outline-primary">Dodaj</button>
-                            <button type="reset" class="btn">Wyczyść</button>
+                            <button type="submit" class="btn btn-outline-primary">Zapisz</button>
                         </div>
                     </form>
                 </div>

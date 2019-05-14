@@ -1,90 +1,98 @@
-<!DOCTYPE HTML>
-<html lang="pl"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="general.html :: head">
-
+<!DOCTYPE html>
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Java Dev Jan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
-<nav th:replace="general.html  :: header"></nav>
-<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="top">
+    <a class="navbar-brand" href="#"><i class="fas fa-stream text-white"></i> Quiz</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html" th:href="@{/admin/questions}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-secondary" href="/../login.html" th:href="@{/logout}">Log out <i
+                        class="fas fa-sign-in-alt"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-md-5">
     <div class="row">
-        <div th:replace="general.html  :: left-menu"></div>
+        <div class="col-md-10 offset-md-1 border border-primary rounded bg-secondary">
 
-        <div id="properties-form" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <div class="container">
+            <div class="row">
+                <div class="col-md-12 bg-primary text-white pt-2">
+                    <h3>Edytujesz ustawienia quizu</h3>
+                    <p>Za pomocą tego formularza zmienisz ustawienia generowania quizu</p>
+                </div>
+                <div class="col-md-12 pt-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="question.html">Panel</a></li>
+                        <li class="breadcrumb-item active">Edycja quizu</li>
+                    </ol>
+                    <form action="#" th:action="@{/admin/properties}" th:object="${quizProperties}" method="post">
+                        <div class="form-group">
+                            <label for="quiz-type">Typ quizu</label>
+                            <select th:field="*{quizType}" class="form-control" id="quiz-type">
+                                <option th:value="'SINGLE'">Test jednokrotnsego wyboru</option>
+                                <option th:value="'MULTIPLE'">Test wielokrotnego wyboru</option>
+                            </select>
+                        </div>
 
-                <form action="#" th:action="@{/processPropertiesForm}" th:object="${quizProperties}" method="post"
-                      class="p-form">
-                    <div class="form-group">
-                        <label for="quizType" class="p-form-label">Typ quizu:</label>
-                        <select id="quizType" th:field="*{quizType}" class="form-control">
-                            <option  th:value="''" disabled selected >TYP QUIZU</option>
-                            <option th:value="'SINGLE'">Test jednokrotnego wyboru</option>
-                            <option th:value="'MULTIPLE'">Test wielokrotnego wyboru</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="quizTime" class="p-form-label">Czas quizu[min]:</label>
-                        <input type="text" th:field="*{quizTimeInMillis}"  id="quizTime" class="form-control">
-                        <p class="text-danger" th:if="${#fields.hasErrors('quizTimeInMillis')}"
-                           th:errors="*{quizTimeInMillis}"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="length" class="p-form-label">Ilość pytań:</label>
-                        <input type="text" th:field="*{quizLength}"  id="length" class="form-control">
-                        <p class="text-danger" th:if="${#fields.hasErrors('quizLength')}"
-                           th:errors="*{quizLength}"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="answers" class="p-form-label">Ilość odpowiedzi do pytania:</label>
-                        <input type="text" th:field="*{answersQuantity}"  id="answers" class="form-control">
-                        <p class="text-danger" th:if="${#fields.hasErrors('answersQuantity')}"
-                           th:errors="*{answersQuantity}"></p>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit">Wyslij</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label for="quizTime">Czas quizu[m]</label>
+                            <input th:field="*{quizTypeInMinutes}" class="form-control" type="number"
+                                   placeholder="Czas..." id="quizTime" required min="1">
+                        </div>
 
-                <!-- <form action="#" th:action="@{/processPropertiesForm}" th:object="${quizProperties}" method="post"
-                       class="p-form">
+                        <div class="form-group">
+                            <label for="question-length">Liczba pytań</label>
+                            <input th:field="*{quizLength}" class="form-control" type="number"
+                                   placeholder="Liczba pytań..." id="question-length" required min="1">
+                        </div>
 
-                     <div class="form-group">
-                         <label class="p-form-label" for="quiz-type">Typ quizu:</label>
-                         <select th:field="*{quizType}" id="quiz-type" class="form-control">
-                             <option th:value="*{'SINGLE'}">Test pojedynczego wyboru</option>
-                             <option th:value="*{'MULTIPLE'}">Test wieloktorntego wyboru</option>
-                         </select>
-                     </div>
+                        <div class="form-group">
+                            <label  for="answer-length">Liczba odpowiedzi do
+                                pytania</label>
+                            <input th:field="*{answersQuantity}" class="form-control" type="number" placeholder="Liczba odpowiedzi..."
+                                   id="answer-length" required min="1" max="6">
+                        </div>
 
-                     <div class="form-group">
-                         <label class="p-form-label" for="quizTimeInMillis">Czas testu[min]:</label>
-                         <input th:filed="*{quizTimeInMillis}" id="quizTimeInMillis" class="form-control" type="text">
-                         <p class="text-danger" th:if="${#fields.hasErrors('quizTimeInMillis')}"
-                            th:errors="*{quizTimeInMillis}"></p>
-                     </div>
-                     <div class="form-group">
-                         <label class="p-form-label" for="questions-number">Liczba pytań:</label>
-                         <input th:filed="*{quizLength}" id="questions-number" class="form-control" type="text">
-                         <p class="text-danger" th:if="${#fields.hasErrors('quizLength')}"
-                            th:errors="*{quizLength}"></p>
-                     </div>
-                     <div class="form-group">
-                         <label class="p-form-label" for="answers-number">Liczba odpowiedzi dla pojedynczego
-                             pytania:</label>
-                         <input th:filed="*{answersQuantity}" id="answers-number" class="form-control" type="text">
-                         <p class="text-danger" th:if="${#fields.hasErrors('answersQuantity')}"
-                            th:errors="*{answersQuantity}"></p>
-                     </div>
-                     <div>
-                         <button class="btn btn-primary" type="submit">Zapisz</button>
-                     </div>
-                 </form>-->
-
+                        <div class="form-group pt-3">
+                            <button type="submit" class="btn btn-outline-primary">Zapisz</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<footer th:replace="general.html  :: footer"></footer>
+<footer class="container-fluid mt-5">
+    <div class="row bg-secondary p-md-4">
+        <div class="col-md-6 pt-md-2">
+            &copy; 2019 Patryk "Seba" Iwańczyk
+        </div>
+        <div class="col-md-6 text-md-right">
+            <a href="#top" class="btn btn-primary"><i class="fas fa-sort-up"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script src="../static/js/jquery.js" th:href="@{/js/jquery.js}"></script>
+<script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
 </body>
 </html>
