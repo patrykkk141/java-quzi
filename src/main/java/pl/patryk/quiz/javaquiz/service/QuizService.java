@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.patryk.quiz.javaquiz.enums.AnswerType;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.exception.BadRequestException;
+import pl.patryk.quiz.javaquiz.exception.QuizException;
 import pl.patryk.quiz.javaquiz.model.Quiz;
 import pl.patryk.quiz.javaquiz.model.QuizQuestion;
 import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
@@ -46,18 +47,15 @@ public class QuizService {
         return quizRepository.findByUserAndQuizId(user, id);
     }
 
-    public Quiz generateQuiz(QuizType type, int length, int answersQuantity, long quizTime) throws BadRequestException {
+    public Quiz generateQuiz(QuizType type, int length, int answersQuantity, long quizTime) throws QuizException {
         Quiz quiz = new Quiz();
         quiz.setQuizType(type);
         quiz.setUser(userService.getCurrentLoggedUser());
         quiz.setStartDate(new Timestamp(System.currentTimeMillis()));
         quiz.setEndDate(new Timestamp(quiz.getStartDate().getTime() + quizTime));
         quiz.setQuizTimeInMillis(quizTime);
-        try {
-            quiz.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, quiz, answersQuantity));
-        } catch (InvalidParameterException e) {
-            throw new BadRequestException("Not enough questions in database ! Please contact with admin");
-        }
+        quiz.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, quiz, answersQuantity));
+
         quiz.setMaxScore(quiz.getQuizQuestions().size());
 
         return quiz;

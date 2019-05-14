@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.patryk.quiz.javaquiz.exception.FileException;
+import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
 import pl.patryk.quiz.javaquiz.model.QuizProperties;
@@ -70,7 +71,7 @@ public class AdminPanelController {
         q.setAnswers(answerService.setNegativeAnswers(a));
         q.setAnswers(answerService.setQuestion(a, q));
 
-        if (image.getFile().getOriginalFilename() != null && image.getFile().getOriginalFilename().length()>0) {
+        if (image.getFile().getOriginalFilename() != null && image.getFile().getOriginalFilename().length() > 0) {
             try {
                 q.setImageUrl(imageService.saveImage(image.getFile()));
             } catch (IOException | FileException e) {
@@ -80,7 +81,7 @@ public class AdminPanelController {
         }
 
         questionService.save(q);
-        return "index";
+        return "redirect:/admin/questions";
     }
 
     @GetMapping("/admin/questions")
@@ -92,37 +93,40 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/question/edit/{id}")
-    public String getEditForm(@PathVariable("id") long id, Model model) {
+    public String getEditForm(@PathVariable("id") long id, Model model) throws NotFoundException {
         Optional<Question> q = questionService.findById(id);
         if (q.isPresent()) {
             q.get().setAnswers(answerService.addEmptyAnswers(q.get().getAnswers()));
             model.addAttribute("question", Converter.toQuestionDto(q.get(), true));
             model.addAttribute("file", new ImageDto());
-        } else {
-            return "redirect:/questions";
+            return "edit";
         }
-        return "edit";
+        throw new NotFoundException(String.format("Question with id: %d not exists!", id));
     }
 
     @PostMapping("/admin/question/edit/{id}")
-    public String updateQuestion(@PathVariable("id") long id, @ModelAttribute @Valid QuestionDto dto, @ModelAttribute ImageDto file, BindingResult result) {
+    public String updateQuestion(@PathVariable("id") long id,
+                                 @ModelAttribute @Valid QuestionDto dto,
+                                 @ModelAttribute ImageDto file,
+                                 BindingResult result) throws NotFoundException {
         Optional<Question> q = questionService.findById(id);
         if (q.isPresent()) {
             processQuestionForm(dto, file, result);
+            return "redirect:/admin/questions";
         }
-        return "redirect:/questions";
+        throw new NotFoundException(String.format("Question with id: %d not exists!", id));
     }
 
     @GetMapping("/admin/question/delete/{id}")
-    public String deleteQuestion(@PathVariable("id") long id) {
+    public String deleteQuestion(@PathVariable("id") long id) throws NotFoundException {
         Optional<Question> q = questionService.findById(id);
         if (q.isPresent()) {
             questionService.deleteById(id);
-            return "questions";
-        } else {
-            // TODO: 13.05.2019 ERROR HANDLING
-            return "redirect:/questions";
+            return "redirect:/admin/questions";
         }
+
+        throw new NotFoundException(String.format("Question with id: %d not exists!", id));
+
     }
 
     @GetMapping("/admin/properties")

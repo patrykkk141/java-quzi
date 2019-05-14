@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.exception.BadRequestException;
 import pl.patryk.quiz.javaquiz.exception.NotFoundException;
+import pl.patryk.quiz.javaquiz.exception.QuizException;
 import pl.patryk.quiz.javaquiz.model.Quiz;
 import pl.patryk.quiz.javaquiz.model.QuizProperties;
 import pl.patryk.quiz.javaquiz.model.dto.QuizDto;
@@ -41,17 +42,20 @@ public class QuizController {
     public ResponseEntity<QuizDto> generateQuizWithParams(@RequestParam(value = "length") int length,
                                                           @RequestParam(value = "type") QuizType type,
                                                           @RequestParam(value = "answers_quantity") int answersQuantity,
-                                                          @RequestParam(value = "quiz_time_in_millis") long quizTime) throws BadRequestException, NotFoundException {
+                                                          @RequestParam(value = "quiz_time_in_millis") long quizTime) throws NotFoundException {
+        try {
+            Quiz quiz = quizService.generateQuiz(type, length, answersQuantity, quizTime);
+            quizService.save(quiz);
+            QuizDto dto = Converter.toQuizDto(quiz, false);
 
-        Quiz quiz = quizService.generateQuiz(type, length, answersQuantity, quizTime);
-        quizService.save(quiz);
-        QuizDto dto = Converter.toQuizDto(quiz, false);
-
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } catch (QuizException e) {
+            throw new NotFoundException(e.getMessage());
+        }
     }
 
     @GetMapping("/api/quiz")
-    public ResponseEntity<QuizDto> generateQuiz() throws BadRequestException, NotFoundException {
+    public ResponseEntity<QuizDto> generateQuiz() throws NotFoundException{
         return generateQuizWithParams(quizProperties.getQuizLength(),
                 quizProperties.getQuizType(),
                 quizProperties.getAnswersQuantity(),
@@ -86,6 +90,6 @@ public class QuizController {
             QuizDto d = Converter.toQuizDto(quiz.get(), true);
             return new ResponseEntity<>(d, HttpStatus.OK);
         }
-        throw new BadRequestException("Quiz not found in DB");
+        throw new BadRequestException("Quiz not found!");
     }
 }
