@@ -14,6 +14,7 @@ public class Question {
     private String text;
     @Column(name = "creation_date")
     private Timestamp creationDate;
+    @Column(columnDefinition = "TEXT")
     private String code;
     @Column(name = "img_url")
     private String imageUrl;

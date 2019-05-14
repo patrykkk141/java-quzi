@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.patryk.quiz.javaquiz.enums.AnswerType;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
+import pl.patryk.quiz.javaquiz.exception.BadRequestException;
 import pl.patryk.quiz.javaquiz.model.Quiz;
 import pl.patryk.quiz.javaquiz.model.QuizQuestion;
 import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
 import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.QuizRepository;
 
+import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -44,14 +46,18 @@ public class QuizService {
         return quizRepository.findByUserAndQuizId(user, id);
     }
 
-    public Quiz generateQuiz(QuizType type, int length, int answersQuantity, long quizTime) {
+    public Quiz generateQuiz(QuizType type, int length, int answersQuantity, long quizTime) throws BadRequestException {
         Quiz quiz = new Quiz();
         quiz.setQuizType(type);
         quiz.setUser(userService.getCurrentLoggedUser());
         quiz.setStartDate(new Timestamp(System.currentTimeMillis()));
         quiz.setEndDate(new Timestamp(quiz.getStartDate().getTime() + quizTime));
         quiz.setQuizTimeInMillis(quizTime);
-        quiz.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, quiz, answersQuantity));
+        try {
+            quiz.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, quiz, answersQuantity));
+        } catch (InvalidParameterException e) {
+            throw new BadRequestException("Not enough questions in database ! Please contact with admin");
+        }
         quiz.setMaxScore(quiz.getQuizQuestions().size());
 
         return quiz;

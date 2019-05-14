@@ -3,15 +3,15 @@ VALUES (1, '{bcrypt}$2a$04$895j3QqSIaZU1dt62X4ntepX6E8XFiGfshM6ghGUG3WXVM/gaQkmO
        (2, 'abc', 'USER', 'marcin', 'marcin@example.com', '2015-03-11 11:13:51', true);
 
 INSERT INTO `question` (`question_id`, `img_url`, `text`, `code`, `creation_date`) VALUES
-(1, NULL, 'Która składnia dodawania obiektu panelu (JPanel panel = new JPanel();) do kontenera okna (JFrame frame = new JFrame();) w języku Java jest poprawna', null, '2015-03-11 11:13:51'),
-(2, NULL, 'W języku Java rozkład komponentów (przycisków) w oknie aplikacji jak na rysunku niżej realizuje klasa (równa siatka przycisków 3x2 tej samej wielkości)', null, '2015-03-11 11:13:51'),
+(1, 'http://localhost:8080/api/image/4e4bca90-e2da-4800-b826-5faceb146aa2.jpg', 'Która składnia dodawania obiektu panelu (JPanel panel = new JPanel();) do kontenera okna (JFrame frame = new JFrame();) w języku Java jest poprawna', 'public String saveImage(MultipartFile file) throws IOException, FileException {\r\n        if (file != null && !file.isEmpty()) {\r\n            String ext = getFileExtension(file.getOriginalFilename());\r\n            if (isImage(ext)) {\r\n                String name = UUID.randomUUID().toString().concat(ext);\r\n                File f = new File(folder + name);\r\n                f.createNewFile();\r\n                file.transferTo(f);\r\n                return API_IMAGE_URL + name;\r\n            }\r\n            throw new FileException(\"File is not an image!\");\r\n        }\r\n        throw new FileException(\"File is empty!\");\r\n    ', '2015-03-11 11:13:51'),
+(2, 'http://localhost:8080/api/image/8211ece4-6d14-42f0-89c1-95d038771462.jpg', 'W języku Java rozkład komponentów (przycisków) w oknie aplikacji jak na rysunku niżej realizuje klasa (równa siatka przycisków 3x2 tej samej wielkości)', '  private String getFileExtension(String s) {\r\n        if (s.lastIndexOf(\".\") > 0)\r\n            return s.substring(s.lastIndexOf(\".\"));\r\n        else return null;\r\n    }', '2015-03-11 11:13:51'),
 (3, NULL, 'Interfejsy funkcyjne:  ', null, '2015-03-11 11:13:51'),
-(4, NULL, 'Parser strumieniowy StAX pozwala na:', null, '2015-03-11 11:13:51'),
+(4, 'http://localhost:8080/api/image/cc027215-3021-441a-84df-21e4bff35dbb.jpg', 'Parser strumieniowy StAX pozwala na:', null, '2015-03-11 11:13:51'),
 (5, NULL, 'Który kod jest poprawny:', null, '2015-03-11 11:13:51'),
 (6, NULL, 'JavaFX: ', null, '2015-03-11 11:13:51'),
 (7, NULL, 'FXML', null, '2015-03-11 11:13:51'),
 (8, NULL, 'Klasa WebEngine i WebView języka JavaFX pozwala na budowę przeglądarki Web która przetwarza: ', null, '2015-03-11 11:13:51'),
-(9, NULL, 'Tworzenie obiektu Klasy komponentu JavaFX (...) ', null, '2015-03-11 11:13:51'),
+(9, 'http://localhost:8080/api/image/c2c7d803-e02a-4537-8cdb-54d047b762af.jpg', 'Tworzenie obiektu Klasy komponentu JavaFX (...) ', ' @GetMapping(\"/api/quiz\")\r\n    public ResponseEntity<QuizDto> generateQuiz() throws BadRequestException, NotFoundException {\r\n        return generateQuizWithParams(quizProperties.getQuizLength(),\r\n                quizProperties.getQuizType(),\r\n                quizProperties.getAnswersQuantity(),\r\n                quizProperties.getQuizTimeInMillis());\r\n    ', '2015-03-11 11:13:51'),
 (10, NULL, 'Prawidłowa definicja interfejsu Interfacename: ', null, '2015-03-11 11:13:51'),
 (11, NULL, 'Która składnia umożliwia przeprowadzenie parsowania pliku języka XML za pomocą interfejsu SAX języka Java: ', null, '2015-03-11 11:13:51');
                                                                  ;
