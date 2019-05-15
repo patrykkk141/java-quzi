@@ -41,42 +41,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .antMatchers("/api/**")
-                .hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin/**")
-                .hasRole("ADMIN")
-                .antMatchers("/index", "/login", "/js/**", "/css/**")
-                .permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/index",true)
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();*/
         http
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
+                .antMatchers("/admin/index").permitAll()
                 .antMatchers("/api/**")
                 .hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
-                .antMatchers("/index", "/login", "/js/**", "/css/**")
+                .antMatchers("/login", "/js/**", "/css/**")
                 .permitAll()
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/admin/questions", true)
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll();
+
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/index", "/");
     }
 
     @Bean

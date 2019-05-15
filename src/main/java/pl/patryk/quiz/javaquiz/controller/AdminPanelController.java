@@ -44,7 +44,7 @@ public class AdminPanelController {
         quizProperties = QuizProperties.getInstance();
     }
 
-    @GetMapping("/admin/index")
+    @GetMapping(value = {"/index", "/"})
     public String getIndex(Model model) {
         List<Question> question = questionService.findAll().subList(0, 3);
         model.addAttribute("latestQuestions", question);
