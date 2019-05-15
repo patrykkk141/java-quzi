@@ -15,7 +15,7 @@ import java.util.UUID;
 public class ImageService {
 
     private static final String API_IMAGE_URL = "http://localhost:8080/api/image/";
-    private final String folder = "C:\\Users\\Patryk\\Documents\\IdeaProjects\\java-quzi\\src\\main\\resources\\static\\images\\";
+    private final String folder = ImageService.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/images/";
     private final List<String> imagesExtensions = new ArrayList<>(Arrays.asList(".png", ".jpg", ".jpeg", ".gif"));
 
     /**

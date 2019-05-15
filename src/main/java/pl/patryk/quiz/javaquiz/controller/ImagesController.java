@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.patryk.quiz.javaquiz.exception.FileException;
+import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.service.ImageService;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class ImagesController {
             return new ResponseEntity<>(arr, headers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Could not load file!", HttpStatus.OK);
+            throw new NotFoundException("Image not found!");
         }
     }
 }

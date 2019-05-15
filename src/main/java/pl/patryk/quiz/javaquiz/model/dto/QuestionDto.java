@@ -1,12 +1,14 @@
 package pl.patryk.quiz.javaquiz.model.dto;
 
 import javax.validation.constraints.NotEmpty;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class QuestionDto {
     private long questionId;
     @NotEmpty
     private String text;
+    private Timestamp creationDate;
     private String code;
     private String imageUrl;
     @NotEmpty
@@ -26,6 +28,14 @@ public class QuestionDto {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getCode() {

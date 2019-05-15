@@ -1,6 +1,7 @@
 package pl.patryk.quiz.javaquiz.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -11,6 +12,9 @@ public class Question {
     private long questionId;
     @Column(nullable = false)
     private String text;
+    @Column(name = "creation_date")
+    private Timestamp creationDate;
+    @Column(columnDefinition = "TEXT")
     private String code;
     @Column(name = "img_url")
     private String imageUrl;
@@ -42,6 +46,14 @@ public class Question {
         this.text = text;
     }
 
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -49,7 +61,6 @@ public class Question {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 
     public List<Answer> getAnswers() {
         return answers;
