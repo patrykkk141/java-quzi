@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.patryk.quiz.javaquiz.enums.AnswerType;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
-import pl.patryk.quiz.javaquiz.exception.BadRequestException;
 import pl.patryk.quiz.javaquiz.exception.QuizException;
 import pl.patryk.quiz.javaquiz.model.Quiz;
 import pl.patryk.quiz.javaquiz.model.QuizQuestion;
@@ -12,8 +11,9 @@ import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
 import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.repository.QuizRepository;
 
-import java.security.InvalidParameterException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +51,7 @@ public class QuizService {
         Quiz quiz = new Quiz();
         quiz.setQuizType(type);
         quiz.setUser(userService.getCurrentLoggedUser());
-        quiz.setStartDate(new Timestamp(System.currentTimeMillis()));
+        quiz.setStartDate(Timestamp.valueOf(LocalDateTime.now()));
         quiz.setEndDate(new Timestamp(quiz.getStartDate().getTime() + quizTime));
         quiz.setQuizTimeInMillis(quizTime);
         quiz.setQuizQuestions(quizQuestionService.generateRandomQuestions(length, type, quiz, answersQuantity));

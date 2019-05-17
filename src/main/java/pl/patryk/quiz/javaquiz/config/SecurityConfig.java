@@ -73,7 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/js/**", "/css/**")
                 .permitAll()
                 .and()
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .csrf()
+                .disable();
     }
 
     @Override

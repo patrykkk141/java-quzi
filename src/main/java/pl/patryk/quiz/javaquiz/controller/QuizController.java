@@ -17,6 +17,7 @@ import pl.patryk.quiz.javaquiz.service.UserService;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,11 +56,28 @@ public class QuizController {
     }
 
     @GetMapping("/api/quiz")
-    public ResponseEntity<QuizDto> generateQuiz() throws NotFoundException{
+    public ResponseEntity<QuizDto> generateQuiz() throws NotFoundException {
         return generateQuizWithParams(quizProperties.getQuizLength(),
                 quizProperties.getQuizType(),
                 quizProperties.getAnswersQuantity(),
                 quizProperties.getQuizTimeInMillis());
+    }
+
+    @PostMapping("/api/quiz")
+    public ResponseEntity<QuizDto> getResult(@RequestBody @Valid QuizDto dto) throws BadRequestException {
+        Optional<Quiz> quiz = quizService.findById(dto.getQuizId());
+        if (quiz.isPresent()) {
+            if (quiz.get().getEndDate().getTime() > new Timestamp(System.currentTimeMillis()).getTime() + quiz.get().getQuizTimeInMillis()) {
+                throw new BadRequestException("Time to complete the quiz passed");
+            }
+            answerService.updateMarkedAnswers(quiz.get().getQuizQuestions(), dto.getQuestionList());
+            quizService.setScore(quiz.get());
+            quizService.save(quiz.get());
+
+            QuizDto d = Converter.toQuizDto(quiz.get(), true);
+            return new ResponseEntity<>(d, HttpStatus.OK);
+        }
+        throw new BadRequestException("Quiz not found!");
     }
 
     @GetMapping("/api/quiz/all")
@@ -77,19 +95,4 @@ public class QuizController {
         throw new NotFoundException("Quiz not found!");
     }
 
-    @PostMapping("/api/quiz")
-    public ResponseEntity<QuizDto> getResult(@RequestBody @Valid QuizDto dto) throws BadRequestException {
-        Optional<Quiz> quiz = quizService.findById(dto.getQuizId());
-        if (quiz.isPresent()) {
-            if (quiz.get().getEndDate().after(new Timestamp(System.currentTimeMillis())))
-                throw new BadRequestException("Time to complete the quiz passed");
-            answerService.updateMarkedAnswers(quiz.get().getQuizQuestions(), dto.getQuestionList());
-            quizService.setScore(quiz.get());
-            quizService.save(quiz.get());
-
-            QuizDto d = Converter.toQuizDto(quiz.get(), true);
-            return new ResponseEntity<>(d, HttpStatus.OK);
-        }
-        throw new BadRequestException("Quiz not found!");
-    }
 }
