@@ -10,6 +10,7 @@ import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.Question;
 import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
+import pl.patryk.quiz.javaquiz.service.Converter;
 import pl.patryk.quiz.javaquiz.service.ImageService;
 import pl.patryk.quiz.javaquiz.service.QuestionService;
 

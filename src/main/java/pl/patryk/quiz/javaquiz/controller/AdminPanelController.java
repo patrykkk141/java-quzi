@@ -14,10 +14,7 @@ import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.ImageDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuestionDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuizPropertiesDto;
-import pl.patryk.quiz.javaquiz.service.AnswerService;
-import pl.patryk.quiz.javaquiz.service.ImageService;
-import pl.patryk.quiz.javaquiz.service.QuestionService;
-import pl.patryk.quiz.javaquiz.service.QuizPropertiesService;
+import pl.patryk.quiz.javaquiz.service.*;
 
 import javax.validation.Valid;
 import java.io.IOException;

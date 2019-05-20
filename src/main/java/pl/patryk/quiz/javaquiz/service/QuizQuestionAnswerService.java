@@ -2,13 +2,11 @@ package pl.patryk.quiz.javaquiz.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.patryk.quiz.javaquiz.controller.Converter;
 import pl.patryk.quiz.javaquiz.enums.AnswerType;
 import pl.patryk.quiz.javaquiz.enums.QuizType;
 import pl.patryk.quiz.javaquiz.model.Answer;
 import pl.patryk.quiz.javaquiz.model.QuizQuestion;
 import pl.patryk.quiz.javaquiz.model.QuizQuestionAnswer;
-import pl.patryk.quiz.javaquiz.model.dto.AnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuizQuestionAnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuizQuestionDto;
 

@@ -9,6 +9,7 @@ import pl.patryk.quiz.javaquiz.exception.NotFoundException;
 import pl.patryk.quiz.javaquiz.model.User;
 import pl.patryk.quiz.javaquiz.model.dto.UserCreateDto;
 import pl.patryk.quiz.javaquiz.model.dto.UserDto;
+import pl.patryk.quiz.javaquiz.service.Converter;
 import pl.patryk.quiz.javaquiz.service.UserService;
 
 import javax.validation.Valid;

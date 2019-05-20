@@ -11,13 +11,13 @@ import pl.patryk.quiz.javaquiz.exception.QuizException;
 import pl.patryk.quiz.javaquiz.model.Quiz;
 import pl.patryk.quiz.javaquiz.model.QuizProperties;
 import pl.patryk.quiz.javaquiz.model.dto.QuizDto;
+import pl.patryk.quiz.javaquiz.service.Converter;
 import pl.patryk.quiz.javaquiz.service.QuizQuestionAnswerService;
 import pl.patryk.quiz.javaquiz.service.QuizService;
 import pl.patryk.quiz.javaquiz.service.UserService;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

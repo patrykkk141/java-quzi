@@ -1,4 +1,4 @@
-package pl.patryk.quiz.javaquiz.controller;
+package pl.patryk.quiz.javaquiz.service;
 
 import pl.patryk.quiz.javaquiz.enums.RoleType;
 import pl.patryk.quiz.javaquiz.model.*;
