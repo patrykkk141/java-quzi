@@ -57,7 +57,7 @@ public class Converter {
         dto.setText(question.getQuestion().getText());
         dto.setCreationDate(question.getQuestion().getCreationDate());
         dto.setImageUrl(question.getQuestion().getImageUrl());
-        dto.setCode(question.getQuestion().getCode());
+        dto.setCode(fixEscapeSequences(question.getQuestion().getCode()));
         dto.setAnswerList(question.getQuizQuestionAnswers().stream().map(x -> Converter.toQuizQuestionAnswerDto(x, showAnswersType)).collect(Collectors.toList()));
 
         return dto;
@@ -95,7 +95,7 @@ public class Converter {
         QuizQuestionAnswerDto dto = new QuizQuestionAnswerDto();
         dto.setAnswerId(answer.getQuizQuestionAnswerId());
         dto.setMarked(answer.getMarked());
-        dto.setText(answer.getAnswer().getText());
+        dto.setText(fixEscapeSequences(answer.getAnswer().getText()));
         if (showAnswerType) dto.setAnswerType(answer.getAnswer().getAnswerType());
 
         return dto;
@@ -140,5 +140,14 @@ public class Converter {
         properties.setAnswersQuantity(dto.getAnswersQuantity());
         properties.setQuizTimeInMillis(dto.getQuizTypeInMinutes() * 60000);
         return properties;
+    }
+
+    private static String fixEscapeSequences(String s) {
+        if (s != null) {
+            String t1 = s.replaceAll("\\\\r", "\r");
+            String t2 = t1.replaceAll("\\\\n", "\n");
+            return t2.replaceAll("\\\\\"", "\"");
+        }
+        return null;
     }
 }
