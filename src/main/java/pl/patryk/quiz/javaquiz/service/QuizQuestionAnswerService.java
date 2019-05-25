@@ -11,6 +11,7 @@ import pl.patryk.quiz.javaquiz.model.dto.QuizQuestionAnswerDto;
 import pl.patryk.quiz.javaquiz.model.dto.QuizQuestionDto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ public class QuizQuestionAnswerService {
             List<Answer> answers = new ArrayList<>();
             answers.add(answerService.getRandomAnswersByQuestionAndAnswerType(question.getQuestion(), AnswerType.POSITIVE).get(0));
             answers.addAll(answerService.getRandomAnswersByQuestionAndAnswerType(question.getQuestion(), AnswerType.NEGATIVE).subList(0, answersQuantity - 1));
+            Collections.shuffle(answers);
             return answers.stream().map(x -> Converter.toQuizQuestionAnswer(x, question)).collect(Collectors.toList());
 
         } else
