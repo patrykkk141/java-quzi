@@ -25,7 +25,7 @@ public class ImagesController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/api/image")
+    @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
         try {
             imageService.saveImage(file);
@@ -36,7 +36,7 @@ public class ImagesController {
         }
     }
 
-    @GetMapping("/api/image/{imageName}")
+    @GetMapping("/image/{imageName}")
     public ResponseEntity<?> downloadImage(@PathVariable("imageName") String imgName) throws Exception {
         File file = imageService.getFileByName(imgName);
         HttpHeaders headers = new HttpHeaders();
