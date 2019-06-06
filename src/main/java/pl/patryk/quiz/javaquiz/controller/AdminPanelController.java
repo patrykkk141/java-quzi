@@ -43,8 +43,8 @@ public class AdminPanelController {
 
     @GetMapping(value = {"/index", "/"})
     public String getIndex(Model model) {
-        List<Question> question = questionService.findAll().subList(0, 3);
-        model.addAttribute("latestQuestions", question);
+        //List<Question> question = questionService.findAll().subList(0, 3);
+       // model.addAttribute("latestQuestions", question);
         return "index";
     }
 

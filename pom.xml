@@ -11,9 +11,9 @@
 	<groupId>pl.patryk.quiz</groupId>
 	<artifactId>java-quzi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>java-quzi</name>
+	<name>java-quiz</name>
 	<description>Demo project for Spring Boot</description>
-
+	<packaging>war</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -88,6 +88,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

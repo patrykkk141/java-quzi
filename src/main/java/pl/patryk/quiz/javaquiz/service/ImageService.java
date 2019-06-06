@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 public class ImageService {
 
-    private static final String API_IMAGE_URL = "http://localhost:8080/api/image/";
+    private static final String API_IMAGE_URL = "http://localhost:8080/image/";
     private final String folder = ImageService.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/images/";
     private final List<String> imagesExtensions = new ArrayList<>(Arrays.asList(".png", ".jpg", ".jpeg", ".gif"));
 
